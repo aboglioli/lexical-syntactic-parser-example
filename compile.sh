@@ -14,7 +14,7 @@ echo "[FINISHED]"
 echo ""
 
 echo "### declare_list COMPILE ###"
-gcc -o declare_list declare_list.tab.c lex.yy.c -lfl
+gcc -o declare_list main.c declare_list.tab.c lex.yy.c -lfl
 echo "[FINISHED]"
 
 echo ""

@@ -3,7 +3,7 @@
 	#include <string.h>
 	#include <malloc.h>
 	#include "declare_list.tab.h"
-	int lines=0;
+	extern int lines=1;
 %}
 
 LNUM	[0-9]+
@@ -28,6 +28,7 @@ NEWLINE ("\r"|"\n"|"\r\n")
 }
 
 {NEWLINE} {
+	++lines;
 	printf("%c", yytext[0]);
 }
 
@@ -182,6 +183,7 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 }
 
 <<EOF>> {
+	printf("\n\n[Se leyeron %d lineas del archivo.]\n", lines);
 	return 0;
 }
 

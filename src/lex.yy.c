@@ -585,7 +585,7 @@ char *yytext;
 	#include <string.h>
 	#include <malloc.h>
 	#include "declare_list.tab.h"
-	int lines=0;
+	extern int lines=1;
 #line 590 "lex.yy.c"
 
 #define INITIAL 0
@@ -880,115 +880,116 @@ case 3:
 YY_RULE_SETUP
 #line 30 "declare_list.l"
 {
+	++lines;
 	printf("%c", yytext[0]);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 34 "declare_list.l"
+#line 35 "declare_list.l"
 {
 	return T_NAMESPACE;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 38 "declare_list.l"
+#line 39 "declare_list.l"
 {
 	return T_NS_SEPARATOR;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 42 "declare_list.l"
+#line 43 "declare_list.l"
 {
 	return T_ARRAY;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 46 "declare_list.l"
+#line 47 "declare_list.l"
 {
 	return T_CLASS;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 50 "declare_list.l"
+#line 51 "declare_list.l"
 {
 	return T_STATIC;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 54 "declare_list.l"
+#line 55 "declare_list.l"
 {
 	return T_CLASS_C;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 58 "declare_list.l"
+#line 59 "declare_list.l"
 {
 	return T_TRAIT_C;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 62 "declare_list.l"
+#line 63 "declare_list.l"
 {
 	return T_FUNC_C;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 66 "declare_list.l"
+#line 67 "declare_list.l"
 {
 	return T_METHOD_C;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 70 "declare_list.l"
+#line 71 "declare_list.l"
 {
 	return T_LINE;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 74 "declare_list.l"
+#line 75 "declare_list.l"
 {
 	return T_FILE;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 78 "declare_list.l"
+#line 79 "declare_list.l"
 {
 	return T_DIR;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 82 "declare_list.l"
+#line 83 "declare_list.l"
 {
 	return T_NS_C;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 86 "declare_list.l"
+#line 87 "declare_list.l"
 {
 	return T_DTWO_POINTS;
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 90 "declare_list.l"
+#line 91 "declare_list.l"
 
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 91 "declare_list.l"
+#line 92 "declare_list.l"
 {
 	
 	return T_END_HEREDOC;
@@ -996,119 +997,119 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 96 "declare_list.l"
+#line 97 "declare_list.l"
 {
 	return T_BOOLEAN_OR;
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 100 "declare_list.l"
+#line 101 "declare_list.l"
 {
 	return T_BOOLEAN_AND;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 104 "declare_list.l"
+#line 105 "declare_list.l"
 {
 	return T_LOGICAL_OR;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 108 "declare_list.l"
+#line 109 "declare_list.l"
 {
 	return T_LOGICAL_AND;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 112 "declare_list.l"
+#line 113 "declare_list.l"
 {
 	return T_LOGICAL_XOR;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 116 "declare_list.l"
+#line 117 "declare_list.l"
 {
 	return T_SL;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 120 "declare_list.l"
+#line 121 "declare_list.l"
 {
 	return T_SR;
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 124 "declare_list.l"
+#line 125 "declare_list.l"
 {
 	return T_IS_IDENTICAL;
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 128 "declare_list.l"
+#line 129 "declare_list.l"
 {
 	return T_IS_NOT_IDENTICAL;
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 132 "declare_list.l"
+#line 133 "declare_list.l"
 {
 	return T_IS_EQUAL;
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 136 "declare_list.l"
+#line 137 "declare_list.l"
 {
 	return T_IS_NOT_EQUAL;
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 140 "declare_list.l"
+#line 141 "declare_list.l"
 {
 	return T_IS_SMALLER_OR_EQUAL;
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 144 "declare_list.l"
+#line 145 "declare_list.l"
 {
 	return T_IS_GREATER_OR_EQUAL;
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 148 "declare_list.l"
+#line 149 "declare_list.l"
 {
 	return T_DOUBLE_ARROW;
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 152 "declare_list.l"
+#line 153 "declare_list.l"
 {
 	return T_POW;
 }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 156 "declare_list.l"
+#line 157 "declare_list.l"
 {
 	return T_CONSTANT_ENCAPSED_STRING;
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 161 "declare_list.l"
+#line 162 "declare_list.l"
 {
 	return T_CONSTANT_ENCAPSED_STRING;
 }
@@ -1116,14 +1117,14 @@ YY_RULE_SETUP
 case 37:
 /* rule 37 can match eol */
 YY_RULE_SETUP
-#line 165 "declare_list.l"
+#line 166 "declare_list.l"
 {
 	return T_START_HEREDOC;
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 169 "declare_list.l"
+#line 170 "declare_list.l"
 {
 	printf("LNUMBER ", yytext);
 	return T_LNUMBER;
@@ -1131,7 +1132,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 174 "declare_list.l"
+#line 175 "declare_list.l"
 {
 	
 	return T_DNUMBER;
@@ -1139,24 +1140,25 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 179 "declare_list.l"
+#line 180 "declare_list.l"
 {	
 	printf("STRING ", yytext);
 	return T_STRING; 
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 184 "declare_list.l"
+#line 185 "declare_list.l"
 {
+	printf("\n\n[Se leyeron %d lineas del archivo.]\n", lines);
 	return 0;
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 188 "declare_list.l"
+#line 190 "declare_list.l"
 ECHO;
 	YY_BREAK
-#line 1160 "lex.yy.c"
+#line 1162 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2149,7 +2151,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 187 "declare_list.l"
+#line 189 "declare_list.l"
 
 
 

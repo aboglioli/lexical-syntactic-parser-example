@@ -3,6 +3,7 @@
 	int yylex();
 	int yyparse();
 	FILE *yyin;
+	FILE *yyout;
 	int lines;
 %}
 
@@ -175,43 +176,5 @@ int yywrap() {
 	return 1;
 }
 
-int main(int argc, char *argv[]) {
-	char opcion;
-	char archivo[1024];
 
-	printf("[DECLARE LIST (PHP)]: Analizador\n");
-
-	if(argc > 1) {
-		printf("Analizando el archivo %s.\n\n", argv[1]);
-		yyin=fopen(argv[1], "r");
-	}
-	else {
-		for(;;) {
-			printf("· [I]ngresar texto\n· [A]brir archivo de texto\n");
-			printf("Opcion: ");
-			scanf("%c", &opcion);	
-			
-			opcion = tolower(opcion);
-
-			if(opcion == 'a') {
-				printf("Nombre de archivo: ");
-				scanf("%s", archivo);
-
-				yyin = fopen(archivo, "r");
-				break;
-			}
-			else if (opcion == 'i') {
-				yyin = stdin;
-				break;
-			}
-			else {
-				printf("Opción incorrecta... Vuelva a elegir una opción\n");
-			}
-		}
-	}
-
-	yyparse();
-
-	return 0;
-}
 

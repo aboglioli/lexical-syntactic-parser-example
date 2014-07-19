@@ -68,9 +68,10 @@
 	int yylex();
 	int yyparse();
 	FILE *yyin;
+	FILE *yyout;
 	int lines;
 
-#line 74 "declare_list.tab.c" /* yacc.c:339  */
+#line 75 "declare_list.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -163,7 +164,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 167 "declare_list.tab.c" /* yacc.c:358  */
+#line 168 "declare_list.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -464,14 +465,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    61,    61,    62,    63,    68,    69,    70,    71,    72,
-      73,    74,    75,    76,    77,    82,    83,    84,    85,    86,
-      87,    88,    89,    90,    91,    92,    93,    96,    99,   100,
-     103,   104,   107,   110,   111,   112,   113,   114,   115,   116,
-     117,   118,   119,   120,   121,   122,   123,   124,   125,   126,
-     127,   128,   129,   130,   131,   132,   133,   134,   135,   136,
-     137,   138,   139,   140,   141,   142,   147,   148,   149,   150,
-     153,   154,   157,   158,   159,   160,   162,   164
+       0,    62,    62,    63,    64,    69,    70,    71,    72,    73,
+      74,    75,    76,    77,    78,    83,    84,    85,    86,    87,
+      88,    89,    90,    91,    92,    93,    94,    97,   100,   101,
+     104,   105,   108,   111,   112,   113,   114,   115,   116,   117,
+     118,   119,   120,   121,   122,   123,   124,   125,   126,   127,
+     128,   129,   130,   131,   132,   133,   134,   135,   136,   137,
+     138,   139,   140,   141,   142,   143,   148,   149,   150,   151,
+     154,   155,   158,   159,   160,   161,   163,   165
 };
 #endif
 
@@ -1388,451 +1389,451 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 61 "declare_list.y" /* yacc.c:1646  */
+#line 62 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1394 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1395 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 62 "declare_list.y" /* yacc.c:1646  */
+#line 63 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1400 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1401 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 63 "declare_list.y" /* yacc.c:1646  */
+#line 64 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1406 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1407 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 68 "declare_list.y" /* yacc.c:1646  */
+#line 69 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1412 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1413 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 69 "declare_list.y" /* yacc.c:1646  */
+#line 70 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1418 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1419 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 70 "declare_list.y" /* yacc.c:1646  */
+#line 71 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1424 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1425 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 71 "declare_list.y" /* yacc.c:1646  */
+#line 72 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1430 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1431 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 72 "declare_list.y" /* yacc.c:1646  */
+#line 73 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1436 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1437 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 73 "declare_list.y" /* yacc.c:1646  */
+#line 74 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1442 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1443 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 74 "declare_list.y" /* yacc.c:1646  */
+#line 75 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1448 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1449 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 75 "declare_list.y" /* yacc.c:1646  */
+#line 76 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1454 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1455 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 76 "declare_list.y" /* yacc.c:1646  */
+#line 77 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1460 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1461 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 77 "declare_list.y" /* yacc.c:1646  */
+#line 78 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1466 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1467 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 82 "declare_list.y" /* yacc.c:1646  */
+#line 83 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1472 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1473 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 83 "declare_list.y" /* yacc.c:1646  */
+#line 84 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1478 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1479 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 84 "declare_list.y" /* yacc.c:1646  */
+#line 85 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1484 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1485 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 85 "declare_list.y" /* yacc.c:1646  */
+#line 86 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1490 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1491 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 86 "declare_list.y" /* yacc.c:1646  */
+#line 87 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1496 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1497 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 87 "declare_list.y" /* yacc.c:1646  */
+#line 88 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1502 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1503 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 88 "declare_list.y" /* yacc.c:1646  */
+#line 89 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1508 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1509 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 89 "declare_list.y" /* yacc.c:1646  */
+#line 90 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1514 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1515 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 90 "declare_list.y" /* yacc.c:1646  */
+#line 91 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1520 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1521 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 91 "declare_list.y" /* yacc.c:1646  */
+#line 92 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1526 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1527 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 92 "declare_list.y" /* yacc.c:1646  */
+#line 93 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1532 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1533 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 93 "declare_list.y" /* yacc.c:1646  */
+#line 94 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1538 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1539 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 96 "declare_list.y" /* yacc.c:1646  */
+#line 97 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1544 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1545 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 99 "declare_list.y" /* yacc.c:1646  */
+#line 100 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1550 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1551 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 100 "declare_list.y" /* yacc.c:1646  */
+#line 101 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1556 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1557 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 103 "declare_list.y" /* yacc.c:1646  */
+#line 104 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1562 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1563 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 104 "declare_list.y" /* yacc.c:1646  */
+#line 105 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1568 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1569 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 107 "declare_list.y" /* yacc.c:1646  */
+#line 108 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1574 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1575 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 110 "declare_list.y" /* yacc.c:1646  */
+#line 111 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1580 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1581 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 111 "declare_list.y" /* yacc.c:1646  */
+#line 112 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1586 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1587 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 112 "declare_list.y" /* yacc.c:1646  */
+#line 113 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1592 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1593 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 113 "declare_list.y" /* yacc.c:1646  */
+#line 114 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1598 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1599 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 114 "declare_list.y" /* yacc.c:1646  */
+#line 115 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1604 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1605 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 115 "declare_list.y" /* yacc.c:1646  */
+#line 116 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1610 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1611 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 116 "declare_list.y" /* yacc.c:1646  */
+#line 117 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1616 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1617 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 117 "declare_list.y" /* yacc.c:1646  */
+#line 118 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1622 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1623 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 118 "declare_list.y" /* yacc.c:1646  */
+#line 119 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1628 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1629 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 119 "declare_list.y" /* yacc.c:1646  */
+#line 120 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1634 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1635 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 120 "declare_list.y" /* yacc.c:1646  */
+#line 121 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1640 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1641 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 121 "declare_list.y" /* yacc.c:1646  */
+#line 122 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1646 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1647 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 122 "declare_list.y" /* yacc.c:1646  */
+#line 123 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1652 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1653 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 123 "declare_list.y" /* yacc.c:1646  */
+#line 124 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1658 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1659 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 124 "declare_list.y" /* yacc.c:1646  */
+#line 125 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1664 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1665 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 125 "declare_list.y" /* yacc.c:1646  */
+#line 126 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1670 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1671 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 126 "declare_list.y" /* yacc.c:1646  */
+#line 127 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1676 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1677 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 127 "declare_list.y" /* yacc.c:1646  */
+#line 128 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1682 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1683 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 128 "declare_list.y" /* yacc.c:1646  */
+#line 129 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1688 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1689 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 129 "declare_list.y" /* yacc.c:1646  */
+#line 130 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1694 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1695 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 130 "declare_list.y" /* yacc.c:1646  */
+#line 131 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1700 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1701 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 131 "declare_list.y" /* yacc.c:1646  */
+#line 132 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1706 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1707 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 132 "declare_list.y" /* yacc.c:1646  */
+#line 133 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1712 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1713 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 133 "declare_list.y" /* yacc.c:1646  */
+#line 134 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1718 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1719 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 134 "declare_list.y" /* yacc.c:1646  */
+#line 135 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1724 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1725 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 135 "declare_list.y" /* yacc.c:1646  */
+#line 136 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1730 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1731 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 136 "declare_list.y" /* yacc.c:1646  */
+#line 137 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1736 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1737 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 137 "declare_list.y" /* yacc.c:1646  */
+#line 138 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1742 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1743 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 138 "declare_list.y" /* yacc.c:1646  */
+#line 139 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1748 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1749 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 139 "declare_list.y" /* yacc.c:1646  */
+#line 140 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1754 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1755 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 140 "declare_list.y" /* yacc.c:1646  */
+#line 141 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1760 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1761 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 141 "declare_list.y" /* yacc.c:1646  */
+#line 142 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1766 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1767 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 142 "declare_list.y" /* yacc.c:1646  */
+#line 143 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1772 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1773 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 147 "declare_list.y" /* yacc.c:1646  */
+#line 148 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1778 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1779 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 148 "declare_list.y" /* yacc.c:1646  */
+#line 149 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1784 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1785 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 149 "declare_list.y" /* yacc.c:1646  */
+#line 150 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1790 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1791 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 150 "declare_list.y" /* yacc.c:1646  */
+#line 151 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1796 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1797 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 153 "declare_list.y" /* yacc.c:1646  */
+#line 154 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1802 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1803 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 154 "declare_list.y" /* yacc.c:1646  */
+#line 155 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1808 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1809 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 157 "declare_list.y" /* yacc.c:1646  */
+#line 158 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1814 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1815 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 158 "declare_list.y" /* yacc.c:1646  */
+#line 159 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1820 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1821 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 159 "declare_list.y" /* yacc.c:1646  */
+#line 160 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1826 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1827 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 160 "declare_list.y" /* yacc.c:1646  */
+#line 161 "declare_list.y" /* yacc.c:1646  */
     { }
-#line 1832 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1833 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1836 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1837 "declare_list.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2060,7 +2061,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 167 "declare_list.y" /* yacc.c:1906  */
+#line 168 "declare_list.y" /* yacc.c:1906  */
 
 
 int yyerror(char *s) {
@@ -2072,43 +2073,5 @@ int yywrap() {
 	return 1;
 }
 
-int main(int argc, char *argv[]) {
-	char opcion;
-	char archivo[1024];
 
-	printf("[DECLARE LIST (PHP)]: Analizador\n");
-
-	if(argc > 1) {
-		printf("Analizando el archivo %s.\n\n", argv[1]);
-		yyin=fopen(argv[1], "r");
-	}
-	else {
-		for(;;) {
-			printf("· [I]ngresar texto\n· [A]brir archivo de texto\n");
-			printf("Opcion: ");
-			scanf("%c", &opcion);	
-			
-			opcion = tolower(opcion);
-
-			if(opcion == 'a') {
-				printf("Nombre de archivo: ");
-				scanf("%s", archivo);
-
-				yyin = fopen(archivo, "r");
-				break;
-			}
-			else if (opcion == 'i') {
-				yyin = stdin;
-				break;
-			}
-			else {
-				printf("Opción incorrecta... Vuelva a elegir una opción\n");
-			}
-		}
-	}
-
-	yyparse();
-
-	return 0;
-}
 
