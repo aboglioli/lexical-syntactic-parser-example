@@ -369,8 +369,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 42
-#define YY_END_OF_BUFFER 43
+#define YY_NUM_RULES 41
+#define YY_END_OF_BUFFER 42
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -380,25 +380,25 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[177] =
     {   0,
-        0,    0,   43,   42,   34,    2,   34,   42,   36,   42,
-       42,   35,   42,    1,   42,   38,   42,   42,    1,   42,
-       40,   40,   40,   40,    4,   40,   40,   40,   40,   40,
-       40,   40,   42,   34,   41,   29,    0,   20,   33,   39,
-       39,   38,    0,   16,   24,   30,   29,   28,   32,   31,
-       25,   40,   40,   21,   40,   40,   40,   36,   35,    0,
-       40,   40,   40,   40,   19,   27,    0,   39,    0,   39,
-        0,   26,   22,   23,   40,   40,   40,   40,   40,   40,
+        0,    0,   42,   41,    2,    3,    2,   41,   36,   41,
+       41,   35,   41,    1,   41,   38,   41,   41,    1,   41,
+       40,   40,   40,   40,    5,   40,   40,   40,   40,   40,
+       40,   40,   41,    2,    3,   30,    0,   21,   34,   39,
+       39,   38,    0,   17,   25,   31,   30,   29,   33,   32,
+       26,   40,   40,   22,   40,   40,   40,   36,   35,    0,
+       40,   40,   40,   40,   20,   28,    0,   39,    0,   39,
+        0,   27,   23,   24,   40,   40,   40,   40,   40,   40,
        40,   40,    0,   40,   40,   40,   40,    0,    0,    0,
         0,    0,   40,   40,   40,   40,   40,   40,   40,   40,
 
        40,   40,   40,   40,   40,    0,    0,    0,   37,   37,
-        0,   40,   40,   40,   40,   40,   40,   40,   40,    5,
-        6,   40,   40,   40,   17,    0,    0,    0,   40,   40,
-       40,   40,   40,   40,   40,   40,   40,   40,    7,   40,
-       14,   40,   40,   40,   40,   40,   40,   40,   40,   40,
-       13,   40,   12,   40,   40,   40,   40,   40,    8,   40,
-       40,   40,    9,   40,    3,   40,   11,   40,   40,   40,
-       40,   18,   10,   40,   15,    0
+        0,   40,   40,   40,   40,   40,   40,   40,   40,    6,
+        7,   40,   40,   40,   18,    0,    0,    0,   40,   40,
+       40,   40,   40,   40,   40,   40,   40,   40,    8,   40,
+       15,   40,   40,   40,   40,   40,   40,   40,   40,   40,
+       14,   40,   13,   40,   40,   40,   40,   40,    9,   40,
+       40,   40,   10,   40,    4,   40,   12,   40,   40,   40,
+       40,   19,   11,   40,   16,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -864,239 +864,239 @@ case 1:
 YY_RULE_SETUP
 #line 21 "declare_list.l"
 {
+	printf("%c ", yytext[0]);
 	return yytext[0];
 }
 	YY_BREAK
 case 2:
-/* rule 2 can match eol */
 YY_RULE_SETUP
-#line 25 "declare_list.l"
+#line 26 "declare_list.l"
 {
-	return yytext[0];
+	printf("WS (%s)", yytext);
 }
 	YY_BREAK
 case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
-#line 29 "declare_list.l"
+#line 30 "declare_list.l"
 {
-	return T_NAMESPACE;
+	printf("%c", yytext[0]);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 33 "declare_list.l"
+#line 34 "declare_list.l"
 {
-	return T_NS_SEPARATOR;
+	return T_NAMESPACE;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 37 "declare_list.l"
+#line 38 "declare_list.l"
 {
-	return T_ARRAY;
+	return T_NS_SEPARATOR;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 41 "declare_list.l"
+#line 42 "declare_list.l"
 {
-	return T_CLASS;
+	return T_ARRAY;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 45 "declare_list.l"
+#line 46 "declare_list.l"
 {
-	return T_STATIC;
+	return T_CLASS;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 49 "declare_list.l"
+#line 50 "declare_list.l"
 {
-	return T_CLASS_C;
+	return T_STATIC;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 53 "declare_list.l"
+#line 54 "declare_list.l"
 {
-	return T_TRAIT_C;
+	return T_CLASS_C;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 57 "declare_list.l"
+#line 58 "declare_list.l"
 {
-	return T_FUNC_C;
+	return T_TRAIT_C;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 61 "declare_list.l"
+#line 62 "declare_list.l"
 {
-	return T_METHOD_C;
+	return T_FUNC_C;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 65 "declare_list.l"
+#line 66 "declare_list.l"
 {
-	return T_LINE;
+	return T_METHOD_C;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 69 "declare_list.l"
+#line 70 "declare_list.l"
 {
-	return T_FILE;
+	return T_LINE;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 73 "declare_list.l"
+#line 74 "declare_list.l"
 {
-	return T_DIR;
+	return T_FILE;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 77 "declare_list.l"
+#line 78 "declare_list.l"
 {
-	return T_NS_C;
+	return T_DIR;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 81 "declare_list.l"
+#line 82 "declare_list.l"
 {
-	return T_DTWO_POINTS;
+	return T_NS_C;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 85 "declare_list.l"
-
+#line 86 "declare_list.l"
+{
+	return T_DTWO_POINTS;
+}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 86 "declare_list.l"
-{
-	
-	return T_END_HEREDOC;
-}
+#line 90 "declare_list.l"
+
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 91 "declare_list.l"
 {
-	return T_BOOLEAN_OR;
+	
+	return T_END_HEREDOC;
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 95 "declare_list.l"
+#line 96 "declare_list.l"
 {
-	return T_BOOLEAN_AND;
+	return T_BOOLEAN_OR;
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 99 "declare_list.l"
+#line 100 "declare_list.l"
 {
-	return T_LOGICAL_OR;
+	return T_BOOLEAN_AND;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 103 "declare_list.l"
+#line 104 "declare_list.l"
 {
-	return T_LOGICAL_AND;
+	return T_LOGICAL_OR;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 107 "declare_list.l"
+#line 108 "declare_list.l"
 {
-	return T_LOGICAL_XOR;
+	return T_LOGICAL_AND;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 111 "declare_list.l"
+#line 112 "declare_list.l"
 {
-	return T_SL;
+	return T_LOGICAL_XOR;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 115 "declare_list.l"
+#line 116 "declare_list.l"
 {
-	return T_SR;
+	return T_SL;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 119 "declare_list.l"
+#line 120 "declare_list.l"
 {
-	return T_IS_IDENTICAL;
+	return T_SR;
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 123 "declare_list.l"
+#line 124 "declare_list.l"
 {
-	return T_IS_NOT_IDENTICAL;
+	return T_IS_IDENTICAL;
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 127 "declare_list.l"
+#line 128 "declare_list.l"
 {
-	return T_IS_EQUAL;
+	return T_IS_NOT_IDENTICAL;
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 131 "declare_list.l"
+#line 132 "declare_list.l"
 {
-	return T_IS_NOT_EQUAL;
+	return T_IS_EQUAL;
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 135 "declare_list.l"
+#line 136 "declare_list.l"
 {
-	return T_IS_SMALLER_OR_EQUAL;
+	return T_IS_NOT_EQUAL;
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 139 "declare_list.l"
+#line 140 "declare_list.l"
 {
-	return T_IS_GREATER_OR_EQUAL;
+	return T_IS_SMALLER_OR_EQUAL;
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 143 "declare_list.l"
+#line 144 "declare_list.l"
 {
-	return T_DOUBLE_ARROW;
+	return T_IS_GREATER_OR_EQUAL;
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 147 "declare_list.l"
+#line 148 "declare_list.l"
 {
-	return T_POW;
+	return T_DOUBLE_ARROW;
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 151 "declare_list.l"
+#line 152 "declare_list.l"
 {
-	printf("whitespace(%s)", yytext);
-	return T_WHITESPACE;
+	return T_POW;
 }
 	YY_BREAK
 case 35:
@@ -1125,7 +1125,7 @@ case 38:
 YY_RULE_SETUP
 #line 169 "declare_list.l"
 {
-	printf("lnumber(%s)", yytext);
+	printf("LNUMBER ", yytext);
 	return T_LNUMBER;
 }
 	YY_BREAK
@@ -1141,31 +1141,22 @@ case 40:
 YY_RULE_SETUP
 #line 179 "declare_list.l"
 {	
-	printf("string(%s)", yytext);
+	printf("STRING ", yytext);
 	return T_STRING; 
 }
 	YY_BREAK
-case 41:
-/* rule 41 can match eol */
-YY_RULE_SETUP
-#line 184 "declare_list.l"
-{
-	++lines;
-	return yytext[0];
-}
-	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 189 "declare_list.l"
+#line 184 "declare_list.l"
 {
 	return 0;
 }
 	YY_BREAK
-case 42:
+case 41:
 YY_RULE_SETUP
-#line 193 "declare_list.l"
+#line 188 "declare_list.l"
 ECHO;
 	YY_BREAK
-#line 1169 "lex.yy.c"
+#line 1160 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2158,7 +2149,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 192 "declare_list.l"
+#line 187 "declare_list.l"
 
 
 

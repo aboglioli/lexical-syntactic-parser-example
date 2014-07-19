@@ -30,7 +30,6 @@
 %token T_LNUMBER
 %token T_DNUMBER
 %token T_CONSTANT_ENCAPSED_STRING
-%token T_WHITESPACE
 %token T_START_HEREDOC
 %token T_END_HEREDOC
 %token T_ENCAPSED_AND_WHITESPACE
@@ -59,9 +58,9 @@
 %%
 
 declare_list:
-		T_STRING '=' static_scalar	'\n'						{ printf(" STRING  = "); }
-	|	declare_list T_STRING '=' static_scalar	'\n'			{ }
-	|	declare_list ',' T_STRING '=' static_scalar	{ }
+		T_STRING '=' static_scalar								{ }
+	|	declare_list T_STRING '=' static_scalar 				{ }
+	|	declare_list ',' T_STRING '=' static_scalar		 		{ }
 ;
 
 
@@ -80,7 +79,7 @@ static_scalar:
 
 
 common_scalar:
-		T_LNUMBER 					{ printf(" LNUMBER "); }
+		T_LNUMBER 					{ }
 	|	T_DNUMBER 					{ }
 	|	T_CONSTANT_ENCAPSED_STRING	{ }
 	|	T_LINE 						{ }
@@ -183,7 +182,7 @@ int main(int argc, char *argv[]) {
 	printf("[DECLARE LIST (PHP)]: Analizador\n");
 
 	if(argc > 1) {
-		printf("Analizando el archivo %s.\n", argv[1]);
+		printf("Analizando el archivo %s.\n\n", argv[1]);
 		yyin=fopen(argv[1], "r");
 	}
 	else {

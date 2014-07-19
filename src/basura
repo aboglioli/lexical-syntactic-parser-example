@@ -10,3 +10,5 @@
 
  	yylval.t = (char*) malloc(strlen(yytext) + 1);
 	strcpy(yylval.t, yytext);
+
+	%token T_WHITESPACE

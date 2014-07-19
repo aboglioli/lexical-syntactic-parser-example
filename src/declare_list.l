@@ -19,11 +19,16 @@ NEWLINE ("\r"|"\n"|"\r\n")
 %%
 
 "="|"," {
+	printf("%c ", yytext[0]);
 	return yytext[0];
 }
 
-"\n" {
-	return yytext[0];
+{WHITESPACE} {
+	printf("WS (%s)", yytext);
+}
+
+{NEWLINE} {
+	printf("%c", yytext[0]);
 }
 
 "namespace" {
@@ -148,11 +153,6 @@ NEWLINE ("\r"|"\n"|"\r\n")
 	return T_POW;
 }
 
-{WHITESPACE} {
-	printf("whitespace(%s)", yytext);
-	return T_WHITESPACE;
-}
-
 b?['] {
 	return T_CONSTANT_ENCAPSED_STRING;
 }
@@ -167,7 +167,7 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 }
 
 {LNUM} {
-	printf("lnumber(%s)", yytext);
+	printf("LNUMBER ", yytext);
 	return T_LNUMBER;
 }
 
@@ -177,13 +177,8 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 }
 
 {LABEL} {	
-	printf("string(%s)", yytext);
+	printf("STRING ", yytext);
 	return T_STRING; 
-}
-
-{NEWLINE} {
-	++lines;
-	return yytext[0];
 }
 
 <<EOF>> {
