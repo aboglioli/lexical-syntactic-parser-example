@@ -51,45 +51,49 @@
 %token T_STATIC
 %token T_DOUBLE_ARROW
 %token T_POW
-%token T_EQUAL
-%token T_COMMA
 
-%start declare_list
+%start declare
 
 %%
 
+declare:
+		declare possible_ret {printf("\n");}
+	|	declare_list possible_ret {printf("\n");}
+	|	declare declare_list possible_ret {printf("\n");}
 declare_list:
-		T_STRING '=' static_scalar								{ }
-	|	declare_list T_STRING '=' static_scalar 				{ }
-	|	declare_list ',' T_STRING '=' static_scalar		 		{ }
+		T_STRING '=' static_scalar { }
+	|	declare_list ',' T_STRING '=' static_scalar { }
 ;
 
 
 static_scalar:
-		common_scalar	{ }
-	|	static_class_name_scalar	{ }
-	|	namespace_name 		{ }
+		common_scalar { }
+	|	static_class_name_scalar { }
+	|	namespace_name  { }
 	|	T_NAMESPACE T_NS_SEPARATOR namespace_name { }
 	|	T_NS_SEPARATOR namespace_name { }
 	|	T_ARRAY '(' static_array_pair_list ')' { }
 	|	'[' static_array_pair_list ']' { }
 	|	static_class_constant { }
-	|	T_CLASS_C			{ }
+	|	T_CLASS_C { }
 	|	static_operation { }
 ;
+possible_ret:
+		/* empty*/ { }
+	|	'\n' { }
 
 
 common_scalar:
-		T_LNUMBER 					{ }
-	|	T_DNUMBER 					{ }
-	|	T_CONSTANT_ENCAPSED_STRING	{ }
-	|	T_LINE 						{ }
-	|	T_FILE 						{ }
-	|	T_DIR   					{ }
-	|	T_TRAIT_C					{ }
-	|	T_METHOD_C					{ }
-	|	T_FUNC_C					{ }
-	|	T_NS_C						{ }
+		T_LNUMBER  { }
+	|	T_DNUMBER  { }
+	|	T_CONSTANT_ENCAPSED_STRING { }
+	|	T_LINE  { }
+	|	T_FILE  { }
+	|	T_DIR    { }
+	|	T_TRAIT_C { }
+	|	T_METHOD_C { }
+	|	T_FUNC_C { }
+	|	T_NS_C { }
 	|	T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC { }
 	|	T_START_HEREDOC T_END_HEREDOC { }
 ;
@@ -102,7 +106,7 @@ namespace_name:
 ;
 static_array_pair_list:
 		/* empty */ { }
-	|	non_empty_static_array_pair_list possible_comma	{ }
+	|	non_empty_static_array_pair_list possible_comma { }
 ;
 static_class_constant:
 		class_name T_DTWO_POINTS T_STRING { }
@@ -155,14 +159,14 @@ namespace_name:
 	|	namespace_name T_NS_SEPARATOR T_STRING { }
 ;
 non_empty_static_array_pair_list:
-		non_empty_static_array_pair_list ',' static_scalar T_DOUBLE_ARROW static_scalar { }
-	|	non_empty_static_array_pair_list ',' static_scalar { }
+		non_empty_static_array_pair_list ',' possible_ret static_scalar T_DOUBLE_ARROW static_scalar { }
+	|	non_empty_static_array_pair_list ',' possible_ret static_scalar { }
 	|	static_scalar T_DOUBLE_ARROW static_scalar { }
 	|	static_scalar { }
 ;
 possible_comma:
-		/* empty */
-	|	','
+		/* empty */ { }
+	|	',' { }
 ;
 
 %%

@@ -81,9 +81,7 @@ extern int yydebug;
     T_IS_GREATER_OR_EQUAL = 291,
     T_STATIC = 292,
     T_DOUBLE_ARROW = 293,
-    T_POW = 294,
-    T_EQUAL = 295,
-    T_COMMA = 296
+    T_POW = 294
   };
 #endif
 

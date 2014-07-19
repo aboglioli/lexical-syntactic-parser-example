@@ -3,7 +3,7 @@
 	#include <string.h>
 	#include <malloc.h>
 	#include "declare_list.tab.h"
-	extern int lines=1;
+	extern int lines=0;
 %}
 
 LNUM	[0-9]+
@@ -18,37 +18,53 @@ NEWLINE ("\r"|"\n"|"\r\n")
 
 %%
 
-"="|"," {
+"=>" {
+	printf("T_DOUBLE_ARROW ");
+	return T_DOUBLE_ARROW;
+}
+
+"="|","|"("|")"|"?"|":" {
+	printf("%c ", yytext[0]);
+	return yytext[0];
+}
+
+"+"|"-"|"\*"|"\/"|"\["|"\]"|"\&"|"\|"|"\^"|"\."|"\<"|"\>" {
 	printf("%c ", yytext[0]);
 	return yytext[0];
 }
 
 {WHITESPACE} {
-	printf("WS (%s)", yytext);
+	//printf("WHITESPACE ");
 }
 
 {NEWLINE} {
 	++lines;
-	printf("%c", yytext[0]);
+	//printf("\nLine %d: ", lines);
+	return '\n';
 }
 
 "namespace" {
+	printf("T_NAMESPACE ");
 	return T_NAMESPACE;
 }
 
 "\\" {
+	printf("T_NS_SEPARATOR ");
 	return T_NS_SEPARATOR;
 }
 
 "array" {
+	printf("T_ARRAY");
 	return T_ARRAY;
 }
 
 "class" {
+	printf("T_CLASS ");
 	return T_CLASS;
 }
 
 "static" {
+	printf("T_STATIC ");
 	return T_STATIC;
 }
 
@@ -95,22 +111,27 @@ NEWLINE ("\r"|"\n"|"\r\n")
 }
 
 "||" {
+	printf("T_BOOLEAN_OR ");
 	return T_BOOLEAN_OR;
 }
 
 "&&" {
+	printf("T_BOOLEAN_AND ");
 	return T_BOOLEAN_AND;
 }
 
 "OR" {
+	printf("T_LOGICAL_OR ");
 	return T_LOGICAL_OR;
 }
 
 "AND" {
+	printf("T_LOCAL_AND ");
 	return T_LOGICAL_AND;
 }
 
 "XOR" {
+	printf("XOR ");
 	return T_LOGICAL_XOR;
 }
 
@@ -146,20 +167,18 @@ NEWLINE ("\r"|"\n"|"\r\n")
 	return T_IS_GREATER_OR_EQUAL;
 }
 
-"=>" {
-	return T_DOUBLE_ARROW;
-}
-
 "*\*" {
 	return T_POW;
 }
 
 b?['] {
+	printf("T_CONSTANT_ENCAPSED_STRING ");
 	return T_CONSTANT_ENCAPSED_STRING;
 }
 
 
 b?["\""] {
+	printf("T_CONSTANT_ENCAPSED_STRING ");
 	return T_CONSTANT_ENCAPSED_STRING;
 }
 
@@ -168,17 +187,17 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 }
 
 {LNUM} {
-	printf("LNUMBER ", yytext);
+	printf("T_LNUMBER ");
 	return T_LNUMBER;
 }
 
 {DNUM}|{EXPONENT_DNUM} {
-	
+	printf("T_DNUMBER ");
 	return T_DNUMBER;
 }
 
 {LABEL} {	
-	printf("STRING ", yytext);
+	printf("T_STRING ");
 	return T_STRING; 
 }
 
