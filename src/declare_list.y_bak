@@ -7,60 +7,62 @@
 	int lines;
 %}
 
-%union {
-	int val;
+/*%union {
+	int i;
 	float f;
-	char *text;
-};
+	char c;
+	char *t;
+}*/
 
-%token <text> T_STRING
-%token <text> T_RET
-%token <text> T_NAMESPACE
-%token <text> T_NS_SEPARATOR
-%token <text> T_ARRAY
-%token <text> T_CLASS
-%token <text> T_CLASS_C
-%token <text> T_TRAIT_C
-%token <text> T_FUNC_C
-%token <text> T_METHOD_C
-%token <text> T_LINE
-%token <text> T_FILE
-%token <text> T_DIR
-%token <text> T_NS_C
-%token <text> T_LNUMBER
-%token <text> T_DNUMBER
-%token <text> T_CONSTANT_ENCAPSED_STRING
-%token <text> T_START_HEREDOC
-%token <text> T_END_HEREDOC
-%token <text> T_ENCAPSED_AND_WHITESPACE
-%token <text> T_DTWO_POINTS
-%token <text> T_SL
-%token <text> T_SR
-%token <text> T_LOGICAL_OR
-%token <text> T_LOGICAL_XOR
-%token <text> T_LOGICAL_AND
-%token <text> T_BOOLEAN_OR
-%token <text> T_BOOLEAN_AND
-%token <text> T_IS_EQUAL
-%token <text> T_IS_NOT_EQUAL
-%token <text> T_IS_IDENTICAL
-%token <text> T_IS_NOT_IDENTICAL
-%token <text> T_IS_SMALLER_OR_EQUAL
-%token <text> T_IS_GREATER_OR_EQUAL
-%token <text> T_STATIC
-%token <text> T_DOUBLE_ARROW
-%token <text> T_POW
+%token T_STRING
+%token T_RET
+%token T_NAMESPACE
+%token T_NS_SEPARATOR
+%token T_ARRAY
+%token T_CLASS
+%token T_CLASS_C
+%token T_TRAIT_C
+%token T_FUNC_C
+%token T_METHOD_C
+%token T_LINE
+%token T_FILE
+%token T_DIR
+%token T_NS_C
+%token T_LNUMBER
+%token T_DNUMBER
+%token T_CONSTANT_ENCAPSED_STRING
+%token T_START_HEREDOC
+%token T_END_HEREDOC
+%token T_ENCAPSED_AND_WHITESPACE
+%token T_DTWO_POINTS
+%token T_SL
+%token T_SR
+%token T_LOGICAL_OR
+%token T_LOGICAL_XOR
+%token T_LOGICAL_AND
+%token T_BOOLEAN_OR
+%token T_BOOLEAN_AND
+%token T_IS_EQUAL
+%token T_IS_NOT_EQUAL
+%token T_IS_IDENTICAL
+%token T_IS_NOT_IDENTICAL
+%token T_IS_SMALLER_OR_EQUAL
+%token T_IS_GREATER_OR_EQUAL
+%token T_STATIC
+%token T_DOUBLE_ARROW
+%token T_POW
 
-%type <text> static_scalar
-%type <text> common_scalar
-
-%start declare_list
+%start declare
 
 %%
 
+declare:
+		declare possible_ret {printf("\n");}
+	|	declare_list possible_ret {printf("\n");}
+	|	declare declare_list possible_ret {printf("\n");}
 declare_list:
-		T_STRING '=' static_scalar { printf("%s ", $3); }
-	|	declare_list ',' T_STRING '=' static_scalar { printf("%s ", $3); }
+		T_STRING '=' static_scalar { }
+	|	declare_list ',' T_STRING '=' static_scalar { }
 ;
 
 
@@ -76,6 +78,9 @@ static_scalar:
 	|	T_CLASS_C { }
 	|	static_operation { }
 ;
+possible_ret:
+		/* empty*/ { }
+	|	'\n' { }
 
 
 common_scalar:
@@ -154,8 +159,8 @@ namespace_name:
 	|	namespace_name T_NS_SEPARATOR T_STRING { }
 ;
 non_empty_static_array_pair_list:
-		non_empty_static_array_pair_list ',' static_scalar T_DOUBLE_ARROW static_scalar { }
-	|	non_empty_static_array_pair_list ',' static_scalar { }
+		non_empty_static_array_pair_list ',' possible_ret static_scalar T_DOUBLE_ARROW static_scalar { }
+	|	non_empty_static_array_pair_list ',' possible_ret static_scalar { }
 	|	static_scalar T_DOUBLE_ARROW static_scalar { }
 	|	static_scalar { }
 ;

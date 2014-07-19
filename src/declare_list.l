@@ -19,52 +19,53 @@ NEWLINE ("\r"|"\n"|"\r\n")
 %%
 
 "=>" {
-	printf("T_DOUBLE_ARROW ");
+	//printf("T_DOUBLE_ARROW ");
 	return T_DOUBLE_ARROW;
 }
 
 "="|","|"("|")"|"?"|":" {
-	printf("%c ", yytext[0]);
+	//printf("%c ", yytext[0]);
 	return yytext[0];
 }
 
 "+"|"-"|"\*"|"\/"|"\["|"\]"|"\&"|"\|"|"\^"|"\."|"\<"|"\>" {
-	printf("%c ", yytext[0]);
+	//printf("%c ", yytext[0]);
 	return yytext[0];
 }
 
 {WHITESPACE} {
-	//printf("WHITESPACE ");
+	////printf("WHITESPACE ");
 }
 
 {NEWLINE} {
 	++lines;
-	//printf("\nLine %d: ", lines);
-	return '\n';
+	////printf("\nLinea %d: ", lines);
+	////printf("\n");
+	//return '\n';
 }
 
 "namespace" {
-	printf("T_NAMESPACE ");
+	//printf("T_NAMESPACE ");
 	return T_NAMESPACE;
 }
 
 "\\" {
-	printf("T_NS_SEPARATOR ");
+	//printf("T_NS_SEPARATOR ");
 	return T_NS_SEPARATOR;
 }
 
 "array" {
-	printf("T_ARRAY");
+	//printf("T_ARRAY");
 	return T_ARRAY;
 }
 
 "class" {
-	printf("T_CLASS ");
+	//printf("T_CLASS ");
 	return T_CLASS;
 }
 
 "static" {
-	printf("T_STATIC ");
+	//printf("T_STATIC ");
 	return T_STATIC;
 }
 
@@ -111,27 +112,27 @@ NEWLINE ("\r"|"\n"|"\r\n")
 }
 
 "||" {
-	printf("T_BOOLEAN_OR ");
+	//printf("T_BOOLEAN_OR ");
 	return T_BOOLEAN_OR;
 }
 
 "&&" {
-	printf("T_BOOLEAN_AND ");
+	//printf("T_BOOLEAN_AND ");
 	return T_BOOLEAN_AND;
 }
 
 "OR" {
-	printf("T_LOGICAL_OR ");
+	//printf("T_LOGICAL_OR ");
 	return T_LOGICAL_OR;
 }
 
 "AND" {
-	printf("T_LOCAL_AND ");
+	//printf("T_LOCAL_AND ");
 	return T_LOGICAL_AND;
 }
 
 "XOR" {
-	printf("XOR ");
+	//printf("XOR ");
 	return T_LOGICAL_XOR;
 }
 
@@ -172,13 +173,13 @@ NEWLINE ("\r"|"\n"|"\r\n")
 }
 
 b?['] {
-	printf("T_CONSTANT_ENCAPSED_STRING ");
+	//printf("T_CONSTANT_ENCAPSED_STRING ");
 	return T_CONSTANT_ENCAPSED_STRING;
 }
 
 
 b?["\""] {
-	printf("T_CONSTANT_ENCAPSED_STRING ");
+	//printf("T_CONSTANT_ENCAPSED_STRING ");
 	return T_CONSTANT_ENCAPSED_STRING;
 }
 
@@ -187,22 +188,25 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 }
 
 {LNUM} {
-	printf("T_LNUMBER ");
+	//printf("T_LNUMBER ");
+	yylval.text = (char*) malloc(strlen(yytext) + 1);
+	strcpy(yylval.text, yytext);
 	return T_LNUMBER;
 }
 
 {DNUM}|{EXPONENT_DNUM} {
-	printf("T_DNUMBER ");
+	//printf("T_DNUMBER ");
 	return T_DNUMBER;
 }
 
 {LABEL} {	
-	printf("T_STRING ");
+	//printf("T_STRING ");
+	yylval.text = (char*) malloc(strlen(yytext) + 1);
+	strcpy(yylval.text, yytext);
 	return T_STRING; 
 }
 
 <<EOF>> {
-	printf("\n\n[Se leyeron %d lineas del archivo.]\n", lines);
 	return 0;
 }
 

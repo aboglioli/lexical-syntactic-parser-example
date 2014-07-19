@@ -3,7 +3,7 @@
 	#include <string.h>
 	#include <malloc.h>
 	#include "declare_list.tab.h"
-	int lines=0;
+	extern int lines=0;
 %}
 
 LNUM	[0-9]+
@@ -12,35 +12,59 @@ EXPONENT_DNUM	(({LNUM}|{DNUM})[eE][+-]?{LNUM})
 HNUM	"0x"[0-9a-fA-F]+
 BNUM	"0b"[01]+
 LABEL	[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*
-WHITESPACE [ \n\r\t]+
+WHITESPACE [ \r\t]+
 TABS_AND_SPACES [ \t]*
-ANY_CHAR [^ ]
 NEWLINE ("\r"|"\n"|"\r\n")
 
 %%
 
+"=>" {
+	printf("T_DOUBLE_ARROW ");
+	return T_DOUBLE_ARROW;
+}
+
+"="|","|"("|")"|"?"|":" {
+	printf("%c ", yytext[0]);
+	return yytext[0];
+}
+
+"+"|"-"|"\*"|"\/"|"\["|"\]"|"\&"|"\|"|"\^"|"\."|"\<"|"\>" {
+	printf("%c ", yytext[0]);
+	return yytext[0];
+}
+
+{WHITESPACE} {
+	//printf("WHITESPACE ");
+}
+
 {NEWLINE} {
 	++lines;
-	return T_RET;
+	//printf("\nLine %d: ", lines);
+	return '\n';
 }
 
 "namespace" {
+	printf("T_NAMESPACE ");
 	return T_NAMESPACE;
 }
 
 "\\" {
+	printf("T_NS_SEPARATOR ");
 	return T_NS_SEPARATOR;
 }
 
 "array" {
+	printf("T_ARRAY");
 	return T_ARRAY;
 }
 
 "class" {
+	printf("T_CLASS ");
 	return T_CLASS;
 }
 
 "static" {
+	printf("T_STATIC ");
 	return T_STATIC;
 }
 
@@ -76,52 +100,38 @@ NEWLINE ("\r"|"\n"|"\r\n")
 	return T_NS_C;
 }
 
-[ \n\r\t\\'#] {
-	return T_ENCAPSED_AND_WHITESPACE;
-}
-
 "::" {
 	return T_DTWO_POINTS;
 }
 
-b?['] {
-	return T_CONSTANT_ENCAPSED_STRING;
-}
-
-
-b?["\""] {
-	return T_CONSTANT_ENCAPSED_STRING;
-}
-
-{WHITESPACE}+ {
-	return T_WHITESPACE;
-}
-
-b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
-	return T_START_HEREDOC;
-}
-
-{ANY_CHAR} {
+#FIXME
+"end_heredoc" {
+	
 	return T_END_HEREDOC;
 }
 
 "||" {
+	printf("T_BOOLEAN_OR ");
 	return T_BOOLEAN_OR;
 }
 
 "&&" {
+	printf("T_BOOLEAN_AND ");
 	return T_BOOLEAN_AND;
 }
 
 "OR" {
+	printf("T_LOGICAL_OR ");
 	return T_LOGICAL_OR;
 }
 
 "AND" {
+	printf("T_LOCAL_AND ");
 	return T_LOGICAL_AND;
 }
 
 "XOR" {
+	printf("XOR ");
 	return T_LOGICAL_XOR;
 }
 
@@ -157,26 +167,43 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 	return T_IS_GREATER_OR_EQUAL;
 }
 
-"=>" {
-	return T_DOUBLE_ARROW;
-}
-
 "*\*" {
 	return T_POW;
 }
 
-{LABEL} {
-	yylval.t = (char*) malloc(strlen(yytext) + 1);
-	strcpy(yylval.t, yytext);
-	return T_STRING; 
+b?['] {
+	printf("T_CONSTANT_ENCAPSED_STRING ");
+	return T_CONSTANT_ENCAPSED_STRING;
+}
+
+
+b?["\""] {
+	printf("T_CONSTANT_ENCAPSED_STRING ");
+	return T_CONSTANT_ENCAPSED_STRING;
+}
+
+b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
+	return T_START_HEREDOC;
 }
 
 {LNUM} {
+	printf("T_LNUMBER ");
 	return T_LNUMBER;
 }
 
 {DNUM}|{EXPONENT_DNUM} {
+	printf("T_DNUMBER ");
 	return T_DNUMBER;
+}
+
+{LABEL} {	
+	printf("T_STRING ");
+	return T_STRING; 
+}
+
+<<EOF>> {
+	printf("\n\n[Se leyeron %d lineas del archivo.]\n", lines);
+	return 0;
 }
 
 %%

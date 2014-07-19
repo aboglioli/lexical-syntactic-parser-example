@@ -4,6 +4,7 @@
 extern FILE *yyin;
 extern FILE *yyout;
 extern int yyparse(void);
+extern int lines;
 
 int main(int argc, char *argv[]) {
 	char opcion;
@@ -43,6 +44,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	yyparse();
+	printf("\n\n[Se leyeron %d lineas del archivo.]\n", lines);
 
 	return 0;
 }
