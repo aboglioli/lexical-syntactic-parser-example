@@ -1,0 +1,12 @@
+"=" {
+	printf("equal\n");
+	return T_EQUAL;
+ }
+
+ "," {
+ 	printf("comma\n");
+ 	return T_COMMA;
+ }
+
+ 	yylval.t = (char*) malloc(strlen(yytext) + 1);
+	strcpy(yylval.t, yytext);
