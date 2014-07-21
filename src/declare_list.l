@@ -19,7 +19,7 @@ NEWLINE ("\r"|"\n"|"\r\n")
 %%
 
 "=>" {
-	//printf("T_DOUBLE_ARROW ");
+	yytextToLval();
 	return T_DOUBLE_ARROW;
 }
 
@@ -34,105 +34,124 @@ NEWLINE ("\r"|"\n"|"\r\n")
 }
 
 {WHITESPACE} {
-	////printf("WHITESPACE ");
+	//printf("WHITESPACE ");
 }
 
 {NEWLINE} {
 	++lines;
-	////printf("\nLinea %d: ", lines);
-	////printf("\n");
+	//printf("\nLinea %d: ", lines);
+	//printf("\n");
 	//return '\n';
 }
 
 "namespace" {
 	//printf("T_NAMESPACE ");
+	yytextToLval();
 	return T_NAMESPACE;
 }
 
 "\\" {
 	//printf("T_NS_SEPARATOR ");
+	yytextToLval();
 	return T_NS_SEPARATOR;
 }
 
 "array" {
 	//printf("T_ARRAY");
+	yytextToLval();
 	return T_ARRAY;
 }
 
 "class" {
 	//printf("T_CLASS ");
+	yytextToLval();
 	return T_CLASS;
 }
 
 "static" {
 	//printf("T_STATIC ");
+	yytextToLval();
 	return T_STATIC;
 }
 
 "__CLASS__" {
+	yytextToLval();
 	return T_CLASS_C;
 }
 
 "__TRAIT__" {
+	yytextToLval();
 	return T_TRAIT_C;
 }
 
 "__FUNCTION__" {
+	yytextToLval();
 	return T_FUNC_C;
 }
 
 "__METHOD__" {
+	yytextToLval();
 	return T_METHOD_C;
 }
 
 "__LINE__" {
+	yytextToLval();
 	return T_LINE;
 }
 
 "__FILE__" {
+	yytextToLval();
 	return T_FILE;
 }
 
 "__DIR__" {
+	yytextToLval();
 	return T_DIR;
 }
 
 "__NAMESPACE__" {
+	yytextToLval();
 	return T_NS_C;
 }
 
 "::" {
+	yytextToLval();
 	return T_DTWO_POINTS;
 }
 
 #FIXME
 "end_heredoc" {
-	
+	yytextToLval();
 	return T_END_HEREDOC;
 }
 
 "||" {
 	//printf("T_BOOLEAN_OR ");
+	yytextToLval();
 	return T_BOOLEAN_OR;
 }
 
 "&&" {
 	//printf("T_BOOLEAN_AND ");
+	yytextToLval();
 	return T_BOOLEAN_AND;
 }
 
 "OR" {
 	//printf("T_LOGICAL_OR ");
+	yytextToLval();
 	return T_LOGICAL_OR;
 }
 
 "AND" {
 	//printf("T_LOCAL_AND ");
+	yytextToLval();
 	return T_LOGICAL_AND;
 }
 
 "XOR" {
 	//printf("XOR ");
+	yytextToLval();
 	return T_LOGICAL_XOR;
 }
 
@@ -141,34 +160,42 @@ NEWLINE ("\r"|"\n"|"\r\n")
 }
 
 ">>" {
+	yytextToLval();
 	return T_SR;
 }
 
 "===" {
+	yytextToLval();
 	return T_IS_IDENTICAL;
 }
 
 "!==" {
+	yytextToLval();
 	return T_IS_NOT_IDENTICAL;
 }
 
 "==" {
+	yytextToLval();
 	return T_IS_EQUAL;
 }
 
 "!="|"<>" {
+	yytextToLval();
 	return T_IS_NOT_EQUAL;
 }
 
 "<=" {
+	yytextToLval();
 	return T_IS_SMALLER_OR_EQUAL;
 }
 
 ">=" {
+	yytextToLval();
 	return T_IS_GREATER_OR_EQUAL;
 }
 
 "*\*" {
+	yytextToLval();
 	return T_POW;
 }
 
@@ -189,8 +216,7 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 
 {LNUM} {
 	//printf("T_LNUMBER ");
-	yylval.text = (char*) malloc(strlen(yytext) + 1);
-	strcpy(yylval.text, yytext);
+	yytextToLval();
 	return T_LNUMBER;
 }
 
@@ -201,14 +227,18 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 
 {LABEL} {	
 	//printf("T_STRING ");
-	yylval.text = (char*) malloc(strlen(yytext) + 1);
-	strcpy(yylval.text, yytext);
+	yytextToLval();
 	return T_STRING; 
 }
 
 <<EOF>> {
-	return 0;
+	return T_END;
 }
 
 %%
+
+void yytextToLval() {
+	yylval.text = (char*) malloc(strlen(yytext) + 1);
+	strcpy(yylval.text, yytext);
+}
 

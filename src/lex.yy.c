@@ -869,7 +869,7 @@ case 1:
 YY_RULE_SETUP
 #line 21 "declare_list.l"
 {
-	//printf("T_DOUBLE_ARROW ");
+	yytextToLval();
 	return T_DOUBLE_ARROW;
 }
 	YY_BREAK
@@ -893,7 +893,7 @@ case 4:
 YY_RULE_SETUP
 #line 36 "declare_list.l"
 {
-	////printf("WHITESPACE ");
+	//printf("WHITESPACE ");
 }
 	YY_BREAK
 case 5:
@@ -902,8 +902,8 @@ YY_RULE_SETUP
 #line 40 "declare_list.l"
 {
 	++lines;
-	////printf("\nLinea %d: ", lines);
-	////printf("\n");
+	//printf("\nLinea %d: ", lines);
+	//printf("\n");
 	//return '\n';
 }
 	YY_BREAK
@@ -912,223 +912,250 @@ YY_RULE_SETUP
 #line 47 "declare_list.l"
 {
 	//printf("T_NAMESPACE ");
+	yytextToLval();
 	return T_NAMESPACE;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 52 "declare_list.l"
+#line 53 "declare_list.l"
 {
 	//printf("T_NS_SEPARATOR ");
+	yytextToLval();
 	return T_NS_SEPARATOR;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 57 "declare_list.l"
+#line 59 "declare_list.l"
 {
 	//printf("T_ARRAY");
+	yytextToLval();
 	return T_ARRAY;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 62 "declare_list.l"
+#line 65 "declare_list.l"
 {
 	//printf("T_CLASS ");
+	yytextToLval();
 	return T_CLASS;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 67 "declare_list.l"
+#line 71 "declare_list.l"
 {
 	//printf("T_STATIC ");
+	yytextToLval();
 	return T_STATIC;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 72 "declare_list.l"
+#line 77 "declare_list.l"
 {
+	yytextToLval();
 	return T_CLASS_C;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 76 "declare_list.l"
+#line 82 "declare_list.l"
 {
+	yytextToLval();
 	return T_TRAIT_C;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 80 "declare_list.l"
+#line 87 "declare_list.l"
 {
+	yytextToLval();
 	return T_FUNC_C;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 84 "declare_list.l"
+#line 92 "declare_list.l"
 {
+	yytextToLval();
 	return T_METHOD_C;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 88 "declare_list.l"
+#line 97 "declare_list.l"
 {
+	yytextToLval();
 	return T_LINE;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 92 "declare_list.l"
+#line 102 "declare_list.l"
 {
+	yytextToLval();
 	return T_FILE;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 96 "declare_list.l"
+#line 107 "declare_list.l"
 {
+	yytextToLval();
 	return T_DIR;
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 100 "declare_list.l"
+#line 112 "declare_list.l"
 {
+	yytextToLval();
 	return T_NS_C;
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 104 "declare_list.l"
+#line 117 "declare_list.l"
 {
+	yytextToLval();
 	return T_DTWO_POINTS;
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 108 "declare_list.l"
+#line 122 "declare_list.l"
 
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 109 "declare_list.l"
+#line 123 "declare_list.l"
 {
-	
+	yytextToLval();
 	return T_END_HEREDOC;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 114 "declare_list.l"
+#line 128 "declare_list.l"
 {
 	//printf("T_BOOLEAN_OR ");
+	yytextToLval();
 	return T_BOOLEAN_OR;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 119 "declare_list.l"
+#line 134 "declare_list.l"
 {
 	//printf("T_BOOLEAN_AND ");
+	yytextToLval();
 	return T_BOOLEAN_AND;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 124 "declare_list.l"
+#line 140 "declare_list.l"
 {
 	//printf("T_LOGICAL_OR ");
+	yytextToLval();
 	return T_LOGICAL_OR;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 129 "declare_list.l"
+#line 146 "declare_list.l"
 {
 	//printf("T_LOCAL_AND ");
+	yytextToLval();
 	return T_LOGICAL_AND;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 134 "declare_list.l"
+#line 152 "declare_list.l"
 {
 	//printf("XOR ");
+	yytextToLval();
 	return T_LOGICAL_XOR;
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 139 "declare_list.l"
+#line 158 "declare_list.l"
 {
 	return T_SL;
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 143 "declare_list.l"
+#line 162 "declare_list.l"
 {
+	yytextToLval();
 	return T_SR;
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 147 "declare_list.l"
+#line 167 "declare_list.l"
 {
+	yytextToLval();
 	return T_IS_IDENTICAL;
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 151 "declare_list.l"
+#line 172 "declare_list.l"
 {
+	yytextToLval();
 	return T_IS_NOT_IDENTICAL;
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 155 "declare_list.l"
+#line 177 "declare_list.l"
 {
+	yytextToLval();
 	return T_IS_EQUAL;
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 159 "declare_list.l"
+#line 182 "declare_list.l"
 {
+	yytextToLval();
 	return T_IS_NOT_EQUAL;
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 163 "declare_list.l"
+#line 187 "declare_list.l"
 {
+	yytextToLval();
 	return T_IS_SMALLER_OR_EQUAL;
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 167 "declare_list.l"
+#line 192 "declare_list.l"
 {
+	yytextToLval();
 	return T_IS_GREATER_OR_EQUAL;
 }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 171 "declare_list.l"
+#line 197 "declare_list.l"
 {
+	yytextToLval();
 	return T_POW;
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 175 "declare_list.l"
+#line 202 "declare_list.l"
 {
 	//printf("T_CONSTANT_ENCAPSED_STRING ");
 	return T_CONSTANT_ENCAPSED_STRING;
@@ -1136,7 +1163,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 181 "declare_list.l"
+#line 208 "declare_list.l"
 {
 	//printf("T_CONSTANT_ENCAPSED_STRING ");
 	return T_CONSTANT_ENCAPSED_STRING;
@@ -1145,24 +1172,23 @@ YY_RULE_SETUP
 case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
-#line 186 "declare_list.l"
+#line 213 "declare_list.l"
 {
 	return T_START_HEREDOC;
 }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 190 "declare_list.l"
+#line 217 "declare_list.l"
 {
 	//printf("T_LNUMBER ");
-	yylval.text = (char*) malloc(strlen(yytext) + 1);
-	strcpy(yylval.text, yytext);
+	yytextToLval();
 	return T_LNUMBER;
 }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 197 "declare_list.l"
+#line 223 "declare_list.l"
 {
 	//printf("T_DNUMBER ");
 	return T_DNUMBER;
@@ -1170,26 +1196,25 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 202 "declare_list.l"
+#line 228 "declare_list.l"
 {	
 	//printf("T_STRING ");
-	yylval.text = (char*) malloc(strlen(yytext) + 1);
-	strcpy(yylval.text, yytext);
+	yytextToLval();
 	return T_STRING; 
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 209 "declare_list.l"
+#line 234 "declare_list.l"
 {
-	return 0;
+	return T_END;
 }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 213 "declare_list.l"
+#line 238 "declare_list.l"
 ECHO;
 	YY_BREAK
-#line 1193 "lex.yy.c"
+#line 1218 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2182,8 +2207,13 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 212 "declare_list.l"
+#line 237 "declare_list.l"
 
 
+
+void yytextToLval() {
+	yylval.text = (char*) malloc(strlen(yytext) + 1);
+	strcpy(yylval.text, yytext);
+}
 
 

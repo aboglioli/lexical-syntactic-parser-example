@@ -81,7 +81,8 @@ extern int yydebug;
     T_IS_GREATER_OR_EQUAL = 291,
     T_STATIC = 292,
     T_DOUBLE_ARROW = 293,
-    T_POW = 294
+    T_POW = 294,
+    T_END = 295
   };
 #endif
 
@@ -90,13 +91,13 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 10 "declare_list.y" /* yacc.c:1909  */
+#line 12 "declare_list.y" /* yacc.c:1909  */
 
 	int val;
 	float f;
 	char *text;
 
-#line 100 "declare_list.tab.h" /* yacc.c:1909  */
+#line 101 "declare_list.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
