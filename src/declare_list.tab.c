@@ -70,7 +70,7 @@
 	FILE *yyin;
 	FILE *yyout;
 	int lines;
-	char *stack[1024];
+	char *stack[1024][2];
 	int i_stack=0;
 
 #line 77 "declare_list.tab.c" /* yacc.c:339  */
@@ -1402,19 +1402,19 @@ yyreduce:
     {
         case 2:
 #line 73 "declare_list.y" /* yacc.c:1646  */
-    { }
+    { pushStack("T_STRING", (yyvsp[-2].text)); }
 #line 1407 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 74 "declare_list.y" /* yacc.c:1646  */
-    { }
+    { pushStack("T_STRING", (yyvsp[-2].text)); }
 #line 1413 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 75 "declare_list.y" /* yacc.c:1646  */
-    { printStack(); return 0; }
+    { pushStack("T_STRING", (yyvsp[-3].text));printStack(); return 0; }
 #line 1419 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1450,7 +1450,7 @@ yyreduce:
 
   case 10:
 #line 85 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    { pushStack("T_ARRAY", (yyvsp[-3].text)); }
 #line 1455 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1480,91 +1480,91 @@ yyreduce:
 
   case 15:
 #line 94 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_LNUMBER", (yyvsp[0].text)); }
 #line 1485 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
 #line 95 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_DNUMBER", (yyvsp[0].text)); }
 #line 1491 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 96 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_CONSTANT_ENCAPSED_STRING", (yyvsp[0].text)); }
 #line 1497 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
 #line 97 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_LINE", (yyvsp[0].text)); }
 #line 1503 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 98 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_FILE", (yyvsp[0].text)); }
 #line 1509 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
 #line 99 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_DIR", (yyvsp[0].text)); }
 #line 1515 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
 #line 100 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_TRAIT_C", (yyvsp[0].text)); }
 #line 1521 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
 #line 101 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_METHOD_C", (yyvsp[0].text)); }
 #line 1527 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
 #line 102 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_FUNC_C", (yyvsp[0].text)); }
 #line 1533 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
 #line 103 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[0].text)); }
+    { pushStack("T_NS_C", (yyvsp[0].text)); }
 #line 1539 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 104 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[-2].text)); }
+    { pushStack("asd", (yyvsp[-2].text)); }
 #line 1545 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 105 "declare_list.y" /* yacc.c:1646  */
-    { pushStack((yyvsp[-1].text)); }
+    { pushStack("asdzxc", (yyvsp[-1].text)); }
 #line 1551 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 108 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1557 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 111 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    { pushStack("T_STRING", (yyvsp[0].text)); }
 #line 1563 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 112 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    { pushStack("T_NS_SEPARATOR", (yyvsp[-1].text)); pushStack("T_STRING", (yyvsp[0].text)); }
 #line 1569 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1576,13 +1576,13 @@ yyreduce:
 
   case 31:
 #line 116 "declare_list.y" /* yacc.c:1646  */
-    { printf("");  }
+    {  }
 #line 1581 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 119 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    { pushStack("T_DTWO_POINTS", (yyvsp[-1].text)); pushStack("T_STRING", (yyvsp[0].text)); }
 #line 1587 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1612,7 +1612,7 @@ yyreduce:
 
   case 37:
 #line 126 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1617 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1660,13 +1660,13 @@ yyreduce:
 
   case 45:
 #line 134 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1665 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
 #line 135 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1671 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1678,55 +1678,55 @@ yyreduce:
 
   case 48:
 #line 137 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1683 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
 #line 138 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1689 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
 #line 139 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1695 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
 #line 140 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1701 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
 #line 141 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1707 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
 #line 142 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1713 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
 #line 143 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1719 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
 #line 144 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1725 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
 #line 145 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1731 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1744,13 +1744,13 @@ yyreduce:
 
   case 59:
 #line 148 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1749 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
 #line 149 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1755 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1786,7 +1786,7 @@ yyreduce:
 
   case 66:
 #line 159 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1791 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1798,19 +1798,19 @@ yyreduce:
 
   case 68:
 #line 161 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1803 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
 #line 162 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    {  }
 #line 1809 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
 #line 165 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    { pushStack("T_DOUBLE_ARROW", (yyvsp[-1].text)); }
 #line 1815 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1822,7 +1822,7 @@ yyreduce:
 
   case 72:
 #line 167 "declare_list.y" /* yacc.c:1646  */
-    { printf(""); }
+    { pushStack("T_DOUBLE_ARROW", (yyvsp[-1].text)); }
 #line 1827 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -2085,15 +2085,17 @@ int yywrap() {
 	return 1;
 }
 
-void pushStack(char *s) {
-	stack[i_stack] = (char*) malloc(strlen(s) + 1);
-	strcpy(stack[i_stack++], s);
+void pushStack(char *t, char *s) {
+	stack[i_stack][0] = (char*) malloc(strlen(t) + 1);
+	stack[i_stack][1] = (char*) malloc(strlen(s) + 1);
+	strcpy(stack[i_stack][0], t);
+	strcpy(stack[i_stack++][1], s);
 }
 
 void printStack() {
 	int i;
-	for(i=0; i<i_stack; i++) {
-		printf("S[%d]: %s; ", i, stack[i]);
+	for(i=i_stack-1; i>=0; --i) {
+		printf("[%s]: %s\n", stack[i][0], stack[i][1]);
 	}
 	printf("\n");
 }
