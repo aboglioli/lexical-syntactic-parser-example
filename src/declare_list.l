@@ -39,7 +39,7 @@ NEWLINE ("\r"|"\n"|"\r\n")
 
 {NEWLINE} {
 	++lines;
-	//printf("\nLinea %d: ", lines);
+	//printf("- Linea %d -\n", lines);
 	//printf("\n");
 	//return '\n';
 }

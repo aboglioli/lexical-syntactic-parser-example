@@ -902,7 +902,7 @@ YY_RULE_SETUP
 #line 40 "declare_list.l"
 {
 	++lines;
-	//printf("\nLinea %d: ", lines);
+	//printf("- Linea %d -\n", lines);
 	//printf("\n");
 	//return '\n';
 }

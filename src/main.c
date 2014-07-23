@@ -10,12 +10,12 @@ int main(int argc, char *argv[]) {
 	char opcion;
 	char archivo[1024];
 
-	printf("\x1B[33m<<Analizador lexico y sintactico>>\n");
+	printf("\x1B[32m<<Analizador lexico y sintactico>>\n");
 	printf("\x1B[32mPHP: declare_list\n\n");
 	printf("\x1B[0m");
 
 	if(argc > 1) {
-		printf("[Analizando el archivo %s.]\n\n", argv[1]);
+		printf("[ Analizando el archivo %s. ]\n\n", argv[1]);
 		yyin=fopen(argv[1], "r");
 	}
 	else {
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	yyparse();
-	printf("\n\n[Se leyeron %d lineas del archivo.]\n", lines);
+	printf("\n[ Se leyeron %d lineas del archivo. ]\n", lines);
 
 	return 0;
 }
