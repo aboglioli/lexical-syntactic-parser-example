@@ -54,7 +54,10 @@ int main(int argc, char *argv[]) {
 	}
 
 	yyparse();
+	printf("\033[01;31mAnálsis léxico: tabla de símbolos\033[00m\n");
 	printSymbolTable();
+	printf("\n");
+	printf("\033[01;31mAnálisis sintáctico: derivacions\033[00m\n");
 	printTree();
 	printf("\n\n[ Se leyeron %d lineas del archivo. ]\n", lines);
 
