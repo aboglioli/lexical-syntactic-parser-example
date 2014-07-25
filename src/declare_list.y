@@ -18,6 +18,7 @@
 	} tokenLevel[1024];
 	int tLevel = 0;
 	int tID = 0;
+	int tree_levels = 0;
 %}
 
 %union {
@@ -178,7 +179,7 @@ non_empty_static_array_pair_list:
 	|	static_scalar { addNT("static_scalar"); addLevel(); }
 ;
 possible_comma:
-		/* empty */ { }
+		/* empty */ { addT(""); addLevel(); }
 	|	',' { addT(","); addLevel(); }
 ;
 
@@ -218,43 +219,35 @@ void addLevel() {
 }
 
 /* LRULRU */
-int printLevel(int i) {
-	int j;
-	for(j=0; j<tokenLevel[i].cant_tokens; j++) {
-		if(tokenLevel[i].token[j].no_terminal) {
-			printf("\x1b[33m[%s]\x1b[0m ", tokenLevel[i].token[j].name);
-		}
-		else {
-			printf("%s ", tokenLevel[i].token[j].name);
-		}
-	}
-}
 
-void printTree(int n, int i) {
+int printTree(int n, int i) {
 	int j;
+	int printed_no_terminals = 0;
 	for(j=0; j<tokenLevel[n].cant_tokens; j++) {
 		if(tokenLevel[n].token[j].no_terminal) {
+			printed_no_terminals++;
 			if(i>0) {
-				printTree(tokenLevel[n].token[j].level_ref, i-1);
+				printed_no_terminals += printTree(tokenLevel[n].token[j].level_ref, i-1);
 			}
 			else {
-				printf("\x1b[33m[\x1b[0m%s\x1b[33m]\x1b[0m ", tokenLevel[n].token[j].name);
+				printf("\x1b[32m%s\x1b[0m ", tokenLevel[n].token[j].name);
 			}
 		}
 		else {
-			printf("%s ", tokenLevel[n].token[j].name);
+			printf("\x1b[0m%s\x1b[0m ", tokenLevel[n].token[j].name);
 		}
 	}
+	return printed_no_terminals;
 }
 
 int makeTree(int i) {
 	int j;
 	int found_no_terminals=0;
-	for(j=tokenLevel[i].cant_tokens-1; j>=0; j--) {
+	for(j=tokenLevel[i].cant_tokens-1; j>=0; --j) {
 		if(tokenLevel[i].token[j].no_terminal == 1) {
 			found_no_terminals++;
 			tokenLevel[i].token[j].level_ref = i-found_no_terminals;
-			printf("Asignado %d a %s(%d)\n", tokenLevel[i].token[j].level_ref, tokenLevel[i].token[j].name, i);
+			//printf("Asignado %d a %s(%d)\n", tokenLevel[i].token[j].level_ref, tokenLevel[i].token[j].name, i);
 			found_no_terminals += makeTree(i-found_no_terminals);
 		}
 	}
@@ -262,18 +255,14 @@ int makeTree(int i) {
 }
 
 void printTokens() {
-	int i;
-	for(i=tLevel; i>=0; i--) {
-		
-		printLevel(i);
-
-		printf ("\n");
-	}
-	printf("\n");
-	makeTree(tLevel);
-	printf("\n");
-	for(i=0; i<=10; i++) {
-		printTree(tLevel, i);
-		printf("<<<->>>\n");
+	int fnt = makeTree(tLevel);
+	int i = 0;
+	for(i=0; ; i++) {
+		if(printTree(tLevel, i) == fnt) {
+			printf("\n");
+			printTree(tLevel, i+1);
+			break;
+		}
+		printf("\n");
 	}
 }

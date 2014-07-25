@@ -44,6 +44,10 @@ NEWLINE ("\r"|"\n"|"\r\n")
 	//return '\n';
 }
 
+";" {
+	return T_END;
+}
+
 "namespace" {
 	//printf("T_NAMESPACE ");
 	yytextToLval();

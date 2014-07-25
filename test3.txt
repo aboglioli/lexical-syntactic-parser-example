@@ -1,2 +1,2 @@
 s=8,
-s=array(r=>9)
+s=array(9)
