@@ -5,20 +5,24 @@
 	FILE *yyin;
 	FILE *yyout;
 	int lines;
-	struct s_tokenLevel;
+
+	char *stToken[1024];
+	char *stValue[1024];
+	int stID ;
+
+	struct s_treeLevel;
 	struct s_token {
 		char *name;
 		int no_terminal;
 		int level_ref;
 	};
-	struct s_tokenLevel {
+	struct s_treeLevel {
 		int level;
 		int cant_tokens;
 		struct s_token token[128];
-	} tokenLevel[1024];
+	} treeLevel[1024];
 	int tLevel = 0;
 	int tID = 0;
-	int tree_levels = 0;
 %}
 
 %union {
@@ -83,9 +87,9 @@
 
 declare_list:
 		T_STRING '=' static_scalar { addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel(); }
-	|	T_STRING '=' static_scalar T_END { addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); printTokens(); return 0; }		
+	|	T_STRING '=' static_scalar T_END { addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }		
 	|	declare_list ',' T_STRING '=' static_scalar { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel(); }
-	|	declare_list ',' T_STRING '=' static_scalar T_END { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); printTokens(); return 0; }
+	|	declare_list ',' T_STRING '=' static_scalar T_END { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }
 ;
 
 
@@ -123,7 +127,7 @@ namespace_name:
 	|	namespace_name T_NS_SEPARATOR T_STRING { addNT("namespace_name"); addT("T_NS_SEPARATOR"); addT("T_STRING"); addLevel(); }
 ;
 static_array_pair_list:
-		/* empty */ { }
+		/* empty */ { addT(""); addLevel(); }
 	|	non_empty_static_array_pair_list possible_comma { addNT("non_empty_static_array_pair_list"); addNT("possible_comma"); addLevel(); }
 ;
 static_class_constant:
@@ -195,46 +199,53 @@ int yywrap() {
 }
 
 void addT(char *t) {
-	tokenLevel[tLevel].token[tID].name = (char*) malloc(strlen(t) + 1);
-	strcpy(tokenLevel[tLevel].token[tID].name, t);
-	//printf("%s(%d) ", tokenLevel[tLevel].token[tID].name, tID);
+	treeLevel[tLevel].token[tID].name = (char*) malloc(strlen(t) + 1);
+	strcpy(treeLevel[tLevel].token[tID].name, t);
+	//printf("%s(%d) ", treeLevel[tLevel].token[tID].name, tID);
 
-	tokenLevel[tLevel].token[tID++].no_terminal = 0;
-	tokenLevel[tLevel].cant_tokens++;
+	treeLevel[tLevel].token[tID++].no_terminal = 0;
+	treeLevel[tLevel].cant_tokens++;
 }
 
 void addNT(char *t) {
-	tokenLevel[tLevel].token[tID].name = (char*) malloc(strlen(t) + 1);
-	strcpy(tokenLevel[tLevel].token[tID].name, t);
+	treeLevel[tLevel].token[tID].name = (char*) malloc(strlen(t) + 1);
+	strcpy(treeLevel[tLevel].token[tID].name, t);
 
-	tokenLevel[tLevel].token[tID++].no_terminal = 1;
-	tokenLevel[tLevel].cant_tokens++;
+	treeLevel[tLevel].token[tID++].no_terminal = 1;
+	treeLevel[tLevel].cant_tokens++;
 }
 
 void addLevel() {
-	//tokenLevel[tLevel].cant_tokens = tID;
-	//printf("\n<cant_token: %d>\n", tokenLevel[tLevel].cant_tokens);
+	//treeLevel[tLevel].cant_tokens = tID;
+	//printf("\n<cant_token: %d>\n", treeLevel[tLevel].cant_tokens);
 	tID = 0;
 	tLevel++;
 }
 
 /* LRULRU */
 
-int printTree(int n, int i) {
+int printTreeLevel(int n, int i) {
 	int j;
 	int printed_no_terminals = 0;
-	for(j=0; j<tokenLevel[n].cant_tokens; j++) {
-		if(tokenLevel[n].token[j].no_terminal) {
+	for(j=0; j<treeLevel[n].cant_tokens; j++) {
+		if(treeLevel[n].token[j].no_terminal) {
 			printed_no_terminals++;
 			if(i>0) {
-				printed_no_terminals += printTree(tokenLevel[n].token[j].level_ref, i-1);
+				if(i == 1) {
+					printf("\x1b[01;32m");
+					printed_no_terminals += printTreeLevel(treeLevel[n].token[j].level_ref, i-1);
+					printf("\x1b[00m");
+				}
+				else {
+					printed_no_terminals += printTreeLevel(treeLevel[n].token[j].level_ref, i-1);
+				}
 			}
 			else {
-				printf("\x1b[32m%s\x1b[0m ", tokenLevel[n].token[j].name);
+				printf("<%s> ", treeLevel[n].token[j].name);
 			}
 		}
 		else {
-			printf("\x1b[0m%s\x1b[0m ", tokenLevel[n].token[j].name);
+			printf("%s ", treeLevel[n].token[j].name);
 		}
 	}
 	return printed_no_terminals;
@@ -243,26 +254,35 @@ int printTree(int n, int i) {
 int makeTree(int i) {
 	int j;
 	int found_no_terminals=0;
-	for(j=tokenLevel[i].cant_tokens-1; j>=0; --j) {
-		if(tokenLevel[i].token[j].no_terminal == 1) {
+	for(j=treeLevel[i].cant_tokens-1; j>=0; --j) {
+		if(treeLevel[i].token[j].no_terminal == 1) {
 			found_no_terminals++;
-			tokenLevel[i].token[j].level_ref = i-found_no_terminals;
-			//printf("Asignado %d a %s(%d)\n", tokenLevel[i].token[j].level_ref, tokenLevel[i].token[j].name, i);
+			treeLevel[i].token[j].level_ref = i-found_no_terminals;
+			//printf("Asignado %d a %s(%d)\n", treeLevel[i].token[j].level_ref, treeLevel[i].token[j].name, i);
 			found_no_terminals += makeTree(i-found_no_terminals);
 		}
 	}
 	return found_no_terminals;
 }
 
-void printTokens() {
+void printTree() {
 	int fnt = makeTree(tLevel);
 	int i = 0;
 	for(i=0; ; i++) {
-		if(printTree(tLevel, i) == fnt) {
+		if(printTreeLevel(tLevel, i) == fnt) {
 			printf("\n");
-			printTree(tLevel, i+1);
+			printTreeLevel(tLevel, i+1);
+			printf("\n");
+			printTreeLevel(tLevel, i+2);
 			break;
 		}
 		printf("\n");
+	}
+}
+
+void printSymbolTable() {
+	int i;
+	for(i=0; i<stID; i++) {
+		printf("[%s]: %s\n", stToken[i], stValue[i]);
 	}
 }

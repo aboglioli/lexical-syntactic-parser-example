@@ -70,22 +70,26 @@
 	FILE *yyin;
 	FILE *yyout;
 	int lines;
-	struct s_tokenLevel;
+
+	char *stToken[1024];
+	char *stValue[1024];
+	int stID ;
+
+	struct s_treeLevel;
 	struct s_token {
 		char *name;
 		int no_terminal;
 		int level_ref;
 	};
-	struct s_tokenLevel {
+	struct s_treeLevel {
 		int level;
 		int cant_tokens;
 		struct s_token token[128];
-	} tokenLevel[1024];
+	} treeLevel[1024];
 	int tLevel = 0;
 	int tID = 0;
-	int tree_levels = 0;
 
-#line 89 "declare_list.tab.c" /* yacc.c:339  */
+#line 93 "declare_list.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -166,13 +170,13 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 24 "declare_list.y" /* yacc.c:355  */
+#line 28 "declare_list.y" /* yacc.c:355  */
 
 	int val;
 	float f;
 	char *text;
 
-#line 176 "declare_list.tab.c" /* yacc.c:355  */
+#line 180 "declare_list.tab.c" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -187,7 +191,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 191 "declare_list.tab.c" /* yacc.c:358  */
+#line 195 "declare_list.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -488,14 +492,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    85,    85,    86,    87,    88,    93,    94,    95,    96,
-      97,    98,    99,   100,   101,   102,   107,   108,   109,   110,
-     111,   112,   113,   114,   115,   116,   119,   122,   123,   126,
-     127,   130,   133,   134,   135,   136,   137,   138,   139,   140,
-     141,   142,   143,   144,   145,   146,   147,   148,   149,   150,
-     151,   152,   153,   154,   155,   156,   157,   158,   159,   160,
-     161,   162,   163,   164,   165,   170,   171,   172,   173,   176,
-     177,   178,   179,   182,   183
+       0,    89,    89,    90,    91,    92,    97,    98,    99,   100,
+     101,   102,   103,   104,   105,   106,   111,   112,   113,   114,
+     115,   116,   117,   118,   119,   120,   123,   126,   127,   130,
+     131,   134,   137,   138,   139,   140,   141,   142,   143,   144,
+     145,   146,   147,   148,   149,   150,   151,   152,   153,   154,
+     155,   156,   157,   158,   159,   160,   161,   162,   163,   164,
+     165,   166,   167,   168,   169,   174,   175,   176,   177,   180,
+     181,   182,   183,   186,   187
 };
 #endif
 
@@ -1421,445 +1425,445 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 85 "declare_list.y" /* yacc.c:1646  */
+#line 89 "declare_list.y" /* yacc.c:1646  */
     { addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel(); }
-#line 1427 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1431 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 86 "declare_list.y" /* yacc.c:1646  */
-    { addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); printTokens(); return 0; }
-#line 1433 "declare_list.tab.c" /* yacc.c:1646  */
+#line 90 "declare_list.y" /* yacc.c:1646  */
+    { addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }
+#line 1437 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 87 "declare_list.y" /* yacc.c:1646  */
+#line 91 "declare_list.y" /* yacc.c:1646  */
     { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel(); }
-#line 1439 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1443 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 88 "declare_list.y" /* yacc.c:1646  */
-    { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); printTokens(); return 0; }
-#line 1445 "declare_list.tab.c" /* yacc.c:1646  */
+#line 92 "declare_list.y" /* yacc.c:1646  */
+    { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }
+#line 1449 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 93 "declare_list.y" /* yacc.c:1646  */
+#line 97 "declare_list.y" /* yacc.c:1646  */
     { addNT("common_scalar"); addLevel(); }
-#line 1451 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1455 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 94 "declare_list.y" /* yacc.c:1646  */
+#line 98 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_class_name_scalar"); addLevel(); }
-#line 1457 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1461 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 95 "declare_list.y" /* yacc.c:1646  */
+#line 99 "declare_list.y" /* yacc.c:1646  */
     { addNT("namespace_name"); addLevel(); }
-#line 1463 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1467 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 96 "declare_list.y" /* yacc.c:1646  */
+#line 100 "declare_list.y" /* yacc.c:1646  */
     { addT("T_NAMESPACE"); addT("T_NS_SEPARATOR"); addNT("namespace_name"); addLevel(); }
-#line 1469 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1473 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 97 "declare_list.y" /* yacc.c:1646  */
+#line 101 "declare_list.y" /* yacc.c:1646  */
     { addT("T_NS_SEPARATOR"); addNT("namespace_name"); addLevel(); }
-#line 1475 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1479 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 98 "declare_list.y" /* yacc.c:1646  */
+#line 102 "declare_list.y" /* yacc.c:1646  */
     { addT("T_ARRAY"); addT("("); addNT("static_array_pair_list"); addT(")"); addLevel(); }
-#line 1481 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1485 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 99 "declare_list.y" /* yacc.c:1646  */
+#line 103 "declare_list.y" /* yacc.c:1646  */
     { addT("["); addNT("static_array_pair_list"); addT("]"); addLevel(); }
-#line 1487 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1491 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 100 "declare_list.y" /* yacc.c:1646  */
+#line 104 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_class_constant"); addLevel(); }
-#line 1493 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1497 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 101 "declare_list.y" /* yacc.c:1646  */
+#line 105 "declare_list.y" /* yacc.c:1646  */
     { addT("T_CLASS_C"); addLevel(); addLevel(); }
-#line 1499 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1503 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 102 "declare_list.y" /* yacc.c:1646  */
+#line 106 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_operation"); addLevel(); }
-#line 1505 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1509 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 107 "declare_list.y" /* yacc.c:1646  */
+#line 111 "declare_list.y" /* yacc.c:1646  */
     { addT("T_LNUMBER"); addLevel(); }
-#line 1511 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1515 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 108 "declare_list.y" /* yacc.c:1646  */
+#line 112 "declare_list.y" /* yacc.c:1646  */
     { addT("T_DNUMBER"); addLevel(); }
-#line 1517 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1521 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 109 "declare_list.y" /* yacc.c:1646  */
+#line 113 "declare_list.y" /* yacc.c:1646  */
     { addT("T_CONSTANT_ENCAPSED_STRING"); addLevel(); }
-#line 1523 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1527 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 110 "declare_list.y" /* yacc.c:1646  */
+#line 114 "declare_list.y" /* yacc.c:1646  */
     { addT("T_LINE"); addLevel(); }
-#line 1529 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1533 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 111 "declare_list.y" /* yacc.c:1646  */
+#line 115 "declare_list.y" /* yacc.c:1646  */
     { addT("T_FILE"); addLevel(); }
-#line 1535 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1539 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 112 "declare_list.y" /* yacc.c:1646  */
+#line 116 "declare_list.y" /* yacc.c:1646  */
     { addT("T_DIR"); addLevel(); }
-#line 1541 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1545 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 113 "declare_list.y" /* yacc.c:1646  */
+#line 117 "declare_list.y" /* yacc.c:1646  */
     { addT("T_TRAIT_C"); addLevel(); }
-#line 1547 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1551 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 114 "declare_list.y" /* yacc.c:1646  */
+#line 118 "declare_list.y" /* yacc.c:1646  */
     { addT("T_METHOD_C"); addLevel(); }
-#line 1553 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1557 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 115 "declare_list.y" /* yacc.c:1646  */
+#line 119 "declare_list.y" /* yacc.c:1646  */
     { addT("T_FUNC_C"); addLevel(); }
-#line 1559 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1563 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 116 "declare_list.y" /* yacc.c:1646  */
+#line 120 "declare_list.y" /* yacc.c:1646  */
     { addT("T_NS_C"); addLevel(); }
-#line 1565 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1569 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 119 "declare_list.y" /* yacc.c:1646  */
+#line 123 "declare_list.y" /* yacc.c:1646  */
     { addNT("class_name"); addT("T_DTWO_POINTS"); addLevel(); }
-#line 1571 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1575 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 122 "declare_list.y" /* yacc.c:1646  */
+#line 126 "declare_list.y" /* yacc.c:1646  */
     { addT("T_STATIC"); addLevel(); }
-#line 1577 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1581 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 123 "declare_list.y" /* yacc.c:1646  */
+#line 127 "declare_list.y" /* yacc.c:1646  */
     { addNT("namespace_name"); addT("T_NS_SEPARATOR"); addT("T_STRING"); addLevel(); }
-#line 1583 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1587 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 126 "declare_list.y" /* yacc.c:1646  */
-    { }
-#line 1589 "declare_list.tab.c" /* yacc.c:1646  */
+#line 130 "declare_list.y" /* yacc.c:1646  */
+    { addT(""); addLevel(); }
+#line 1593 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 127 "declare_list.y" /* yacc.c:1646  */
+#line 131 "declare_list.y" /* yacc.c:1646  */
     { addNT("non_empty_static_array_pair_list"); addNT("possible_comma"); addLevel(); }
-#line 1595 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1599 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 130 "declare_list.y" /* yacc.c:1646  */
+#line 134 "declare_list.y" /* yacc.c:1646  */
     { addNT("class_name"); addT("T_DTWO_POINTS"); addT("T_STRING"); addLevel(); }
-#line 1601 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1605 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 133 "declare_list.y" /* yacc.c:1646  */
+#line 137 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("["); addNT("static_scalar"); addT("]"); addLevel();}
-#line 1607 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1611 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 134 "declare_list.y" /* yacc.c:1646  */
+#line 138 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("+"); addNT("static_scalar"); addLevel(); }
-#line 1613 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1617 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 135 "declare_list.y" /* yacc.c:1646  */
+#line 139 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("-"); addNT("static_scalar"); addLevel(); }
-#line 1619 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1623 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 136 "declare_list.y" /* yacc.c:1646  */
+#line 140 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("*"); addNT("static_scalar"); addLevel(); }
-#line 1625 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1629 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 137 "declare_list.y" /* yacc.c:1646  */
+#line 141 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_POW"); addNT("static_scalar"); addLevel(); }
-#line 1631 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1635 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 138 "declare_list.y" /* yacc.c:1646  */
+#line 142 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("/"); addNT("static_scalar"); addLevel(); }
-#line 1637 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1641 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 139 "declare_list.y" /* yacc.c:1646  */
+#line 143 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("%"); addNT("static_scalar"); addLevel(); }
-#line 1643 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1647 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 140 "declare_list.y" /* yacc.c:1646  */
+#line 144 "declare_list.y" /* yacc.c:1646  */
     { addT("!"); addNT("static_scalar"); addLevel(); }
-#line 1649 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1653 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 141 "declare_list.y" /* yacc.c:1646  */
+#line 145 "declare_list.y" /* yacc.c:1646  */
     { addT("~"); addNT("static_scalar"); addLevel(); }
-#line 1655 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1659 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 142 "declare_list.y" /* yacc.c:1646  */
+#line 146 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("|"); addNT("static_scalar"); addLevel(); }
-#line 1661 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1665 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 143 "declare_list.y" /* yacc.c:1646  */
+#line 147 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("&"); addNT("static_scalar"); addLevel(); }
-#line 1667 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1671 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 144 "declare_list.y" /* yacc.c:1646  */
+#line 148 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("^"); addNT("static_scalar"); addLevel(); }
-#line 1673 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1677 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 145 "declare_list.y" /* yacc.c:1646  */
+#line 149 "declare_list.y" /* yacc.c:1646  */
     {  addNT("static_scalar"); addT("T_SL"); addNT("static_scalar"); addLevel(); }
-#line 1679 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1683 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 146 "declare_list.y" /* yacc.c:1646  */
+#line 150 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_SR"); addNT("static_scalar"); addLevel(); }
-#line 1685 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1689 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 147 "declare_list.y" /* yacc.c:1646  */
+#line 151 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("."); addNT("static_scalar"); addLevel(); }
-#line 1691 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1695 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 148 "declare_list.y" /* yacc.c:1646  */
+#line 152 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_LOGICAL_XOR"); addNT("static_scalar"); addLevel(); }
-#line 1697 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1701 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 149 "declare_list.y" /* yacc.c:1646  */
+#line 153 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_LOGICAL_AND"); addNT("static_scalar"); addLevel(); }
-#line 1703 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1707 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 150 "declare_list.y" /* yacc.c:1646  */
+#line 154 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_LOGICAL_OR"); addNT("static_scalar"); addLevel(); }
-#line 1709 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1713 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 151 "declare_list.y" /* yacc.c:1646  */
+#line 155 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_BOOLEAN_AND"); addNT("static_scalar"); addLevel(); }
-#line 1715 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1719 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 152 "declare_list.y" /* yacc.c:1646  */
+#line 156 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_BOOLEAN_OR"); addNT("static_scalar"); addLevel(); }
-#line 1721 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1725 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 153 "declare_list.y" /* yacc.c:1646  */
+#line 157 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_IS_IDENTICAL"); addNT("static_scalar"); addLevel(); }
-#line 1727 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1731 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 154 "declare_list.y" /* yacc.c:1646  */
+#line 158 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_IS_NOT_IDENTICAL"); addNT("static_scalar"); addLevel(); }
-#line 1733 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1737 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 155 "declare_list.y" /* yacc.c:1646  */
+#line 159 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_IS_EQUAL"); addNT("static_scalar"); addLevel(); }
-#line 1739 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1743 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 156 "declare_list.y" /* yacc.c:1646  */
+#line 160 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_IS_NOT_EQUAL"); addNT("static_scalar"); addLevel(); }
-#line 1745 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1749 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 157 "declare_list.y" /* yacc.c:1646  */
+#line 161 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("<"); addNT("static_scalar"); addLevel(); }
-#line 1751 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1755 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 158 "declare_list.y" /* yacc.c:1646  */
+#line 162 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT(">"); addNT("static_scalar"); addLevel(); }
-#line 1757 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1761 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 159 "declare_list.y" /* yacc.c:1646  */
+#line 163 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_IS_SMALLER_OR_EQUAL"); addNT("static_scalar"); addLevel(); }
-#line 1763 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1767 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 160 "declare_list.y" /* yacc.c:1646  */
+#line 164 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("T_IS_GREATER_OR_EQUAL"); addNT("static_scalar"); addLevel(); }
-#line 1769 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1773 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 161 "declare_list.y" /* yacc.c:1646  */
+#line 165 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("?"); addT(":"); addNT("static_scalar"); addLevel(); }
-#line 1775 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1779 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 162 "declare_list.y" /* yacc.c:1646  */
+#line 166 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addT("?"); addNT("static_scalar"); addT(":"); addNT("static_scalar"); addLevel(); }
-#line 1781 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1785 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 163 "declare_list.y" /* yacc.c:1646  */
+#line 167 "declare_list.y" /* yacc.c:1646  */
     { addT("+"); addNT("static_scalar"); addLevel(); }
-#line 1787 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1791 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 164 "declare_list.y" /* yacc.c:1646  */
+#line 168 "declare_list.y" /* yacc.c:1646  */
     { addT("-"); addNT("static_scalar"); addLevel(); }
-#line 1793 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1797 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 165 "declare_list.y" /* yacc.c:1646  */
+#line 169 "declare_list.y" /* yacc.c:1646  */
     { addT("("); addNT("static_scalar"); addT(")"); addLevel(); }
-#line 1799 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1803 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 170 "declare_list.y" /* yacc.c:1646  */
+#line 174 "declare_list.y" /* yacc.c:1646  */
     { addT("T_STATIC"); addLevel(); }
-#line 1805 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1809 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 171 "declare_list.y" /* yacc.c:1646  */
+#line 175 "declare_list.y" /* yacc.c:1646  */
     { addNT("namespace_name"); addLevel(); }
-#line 1811 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1815 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 172 "declare_list.y" /* yacc.c:1646  */
+#line 176 "declare_list.y" /* yacc.c:1646  */
     { addT("T_NAMESPACE"); addT("T_NS_SEPARATOR"); addNT("namespace_name"); addLevel(); }
-#line 1817 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1821 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 173 "declare_list.y" /* yacc.c:1646  */
+#line 177 "declare_list.y" /* yacc.c:1646  */
     { addT("T_NS_SEPARATOR"); addNT("namespace_name"); addLevel(); }
-#line 1823 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1827 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 176 "declare_list.y" /* yacc.c:1646  */
+#line 180 "declare_list.y" /* yacc.c:1646  */
     { addNT("non_empty_static_array_pair_list"); addT(","); addNT("static_scalar"); addT("T_DOUBLE_ARROW"); addNT("static_scalar"); addLevel(); }
-#line 1829 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1833 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 177 "declare_list.y" /* yacc.c:1646  */
+#line 181 "declare_list.y" /* yacc.c:1646  */
     { addNT("non_empty_static_array_pair_list"); addT(","); addNT("static_scalar"); addLevel(); }
-#line 1835 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1839 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 178 "declare_list.y" /* yacc.c:1646  */
+#line 182 "declare_list.y" /* yacc.c:1646  */
     {  addNT("static_scalar"); addT("T_DOUBLE_ARROW"); addNT("static_scalar"); addLevel(); }
-#line 1841 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1845 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 179 "declare_list.y" /* yacc.c:1646  */
+#line 183 "declare_list.y" /* yacc.c:1646  */
     { addNT("static_scalar"); addLevel(); }
-#line 1847 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1851 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 182 "declare_list.y" /* yacc.c:1646  */
+#line 186 "declare_list.y" /* yacc.c:1646  */
     { addT(""); addLevel(); }
-#line 1853 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1857 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 183 "declare_list.y" /* yacc.c:1646  */
+#line 187 "declare_list.y" /* yacc.c:1646  */
     { addT(","); addLevel(); }
-#line 1859 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1863 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1863 "declare_list.tab.c" /* yacc.c:1646  */
+#line 1867 "declare_list.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2087,7 +2091,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 186 "declare_list.y" /* yacc.c:1906  */
+#line 190 "declare_list.y" /* yacc.c:1906  */
 
 
 int yyerror(char *s) {
@@ -2100,46 +2104,53 @@ int yywrap() {
 }
 
 void addT(char *t) {
-	tokenLevel[tLevel].token[tID].name = (char*) malloc(strlen(t) + 1);
-	strcpy(tokenLevel[tLevel].token[tID].name, t);
-	//printf("%s(%d) ", tokenLevel[tLevel].token[tID].name, tID);
+	treeLevel[tLevel].token[tID].name = (char*) malloc(strlen(t) + 1);
+	strcpy(treeLevel[tLevel].token[tID].name, t);
+	//printf("%s(%d) ", treeLevel[tLevel].token[tID].name, tID);
 
-	tokenLevel[tLevel].token[tID++].no_terminal = 0;
-	tokenLevel[tLevel].cant_tokens++;
+	treeLevel[tLevel].token[tID++].no_terminal = 0;
+	treeLevel[tLevel].cant_tokens++;
 }
 
 void addNT(char *t) {
-	tokenLevel[tLevel].token[tID].name = (char*) malloc(strlen(t) + 1);
-	strcpy(tokenLevel[tLevel].token[tID].name, t);
+	treeLevel[tLevel].token[tID].name = (char*) malloc(strlen(t) + 1);
+	strcpy(treeLevel[tLevel].token[tID].name, t);
 
-	tokenLevel[tLevel].token[tID++].no_terminal = 1;
-	tokenLevel[tLevel].cant_tokens++;
+	treeLevel[tLevel].token[tID++].no_terminal = 1;
+	treeLevel[tLevel].cant_tokens++;
 }
 
 void addLevel() {
-	//tokenLevel[tLevel].cant_tokens = tID;
-	//printf("\n<cant_token: %d>\n", tokenLevel[tLevel].cant_tokens);
+	//treeLevel[tLevel].cant_tokens = tID;
+	//printf("\n<cant_token: %d>\n", treeLevel[tLevel].cant_tokens);
 	tID = 0;
 	tLevel++;
 }
 
 /* LRULRU */
 
-int printTree(int n, int i) {
+int printTreeLevel(int n, int i) {
 	int j;
 	int printed_no_terminals = 0;
-	for(j=0; j<tokenLevel[n].cant_tokens; j++) {
-		if(tokenLevel[n].token[j].no_terminal) {
+	for(j=0; j<treeLevel[n].cant_tokens; j++) {
+		if(treeLevel[n].token[j].no_terminal) {
 			printed_no_terminals++;
 			if(i>0) {
-				printed_no_terminals += printTree(tokenLevel[n].token[j].level_ref, i-1);
+				if(i == 1) {
+					printf("\x1b[01;32m");
+					printed_no_terminals += printTreeLevel(treeLevel[n].token[j].level_ref, i-1);
+					printf("\x1b[00m");
+				}
+				else {
+					printed_no_terminals += printTreeLevel(treeLevel[n].token[j].level_ref, i-1);
+				}
 			}
 			else {
-				printf("\x1b[32m%s\x1b[0m ", tokenLevel[n].token[j].name);
+				printf("<%s> ", treeLevel[n].token[j].name);
 			}
 		}
 		else {
-			printf("\x1b[0m%s\x1b[0m ", tokenLevel[n].token[j].name);
+			printf("%s ", treeLevel[n].token[j].name);
 		}
 	}
 	return printed_no_terminals;
@@ -2148,26 +2159,35 @@ int printTree(int n, int i) {
 int makeTree(int i) {
 	int j;
 	int found_no_terminals=0;
-	for(j=tokenLevel[i].cant_tokens-1; j>=0; --j) {
-		if(tokenLevel[i].token[j].no_terminal == 1) {
+	for(j=treeLevel[i].cant_tokens-1; j>=0; --j) {
+		if(treeLevel[i].token[j].no_terminal == 1) {
 			found_no_terminals++;
-			tokenLevel[i].token[j].level_ref = i-found_no_terminals;
-			//printf("Asignado %d a %s(%d)\n", tokenLevel[i].token[j].level_ref, tokenLevel[i].token[j].name, i);
+			treeLevel[i].token[j].level_ref = i-found_no_terminals;
+			//printf("Asignado %d a %s(%d)\n", treeLevel[i].token[j].level_ref, treeLevel[i].token[j].name, i);
 			found_no_terminals += makeTree(i-found_no_terminals);
 		}
 	}
 	return found_no_terminals;
 }
 
-void printTokens() {
+void printTree() {
 	int fnt = makeTree(tLevel);
 	int i = 0;
 	for(i=0; ; i++) {
-		if(printTree(tLevel, i) == fnt) {
+		if(printTreeLevel(tLevel, i) == fnt) {
 			printf("\n");
-			printTree(tLevel, i+1);
+			printTreeLevel(tLevel, i+1);
+			printf("\n");
+			printTreeLevel(tLevel, i+2);
 			break;
 		}
 		printf("\n");
+	}
+}
+
+void printSymbolTable() {
+	int i;
+	for(i=0; i<stID; i++) {
+		printf("[%s]: %s\n", stToken[i], stValue[i]);
 	}
 }

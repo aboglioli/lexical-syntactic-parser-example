@@ -4,6 +4,10 @@
 	#include <malloc.h>
 	#include "declare_list.tab.h"
 	extern int lines=0;
+
+	extern char *stToken[1024];
+	extern char *stValue[1024];
+	extern int stID = 0;
 %}
 
 LNUM	[0-9]+
@@ -19,198 +23,186 @@ NEWLINE ("\r"|"\n"|"\r\n")
 %%
 
 "=>" {
-	yytextToLval();
+	addSymbol("T_DOUBLE_ARROW");
 	return T_DOUBLE_ARROW;
 }
 
 "="|","|"("|")"|"?"|":" {
-	//printf("%c ", yytext[0]);
+	addSymbol("T_CHAR");
 	return yytext[0];
 }
 
 "+"|"-"|"\*"|"\/"|"\["|"\]"|"\&"|"\|"|"\^"|"\."|"\<"|"\>" {
-	//printf("%c ", yytext[0]);
+	addSymbol("T_CHAR");
 	return yytext[0];
 }
 
 {WHITESPACE} {
-	//printf("WHITESPACE ");
+	addSymbol("WHITESPACE");
 }
 
 {NEWLINE} {
 	++lines;
-	//printf("- Linea %d -\n", lines);
-	//printf("\n");
-	//return '\n';
 }
 
 ";" {
+	addSymbol("T_END");
 	return T_END;
 }
 
 "namespace" {
-	//printf("T_NAMESPACE ");
-	yytextToLval();
+	addSymbol("T_NAMESPACE");
 	return T_NAMESPACE;
 }
 
 "\\" {
-	//printf("T_NS_SEPARATOR ");
-	yytextToLval();
+	addSymbol("T_NS_SEPARATOR");
 	return T_NS_SEPARATOR;
 }
 
 "array" {
-	//printf("T_ARRAY");
-	yytextToLval();
+	addSymbol("T_ARRAY");
 	return T_ARRAY;
 }
 
 "class" {
-	//printf("T_CLASS ");
-	yytextToLval();
+	addSymbol("T_CLASS");
 	return T_CLASS;
 }
 
 "static" {
-	//printf("T_STATIC ");
-	yytextToLval();
+	addSymbol("T_STATIC");
 	return T_STATIC;
 }
 
 "__CLASS__" {
-	yytextToLval();
+	addSymbol("T_CLASS_C");
 	return T_CLASS_C;
 }
 
 "__TRAIT__" {
-	yytextToLval();
+	addSymbol("T_TRAIT_C");
 	return T_TRAIT_C;
 }
 
 "__FUNCTION__" {
-	yytextToLval();
+	addSymbol("T_FUNC_C");
 	return T_FUNC_C;
 }
 
 "__METHOD__" {
-	yytextToLval();
+	addSymbol("T_METHOD_C");
 	return T_METHOD_C;
 }
 
 "__LINE__" {
-	yytextToLval();
+	addSymbol("T_LINE");
 	return T_LINE;
 }
 
 "__FILE__" {
-	yytextToLval();
+	addSymbol("T_FILE");
 	return T_FILE;
 }
 
 "__DIR__" {
-	yytextToLval();
+	addSymbol("T_DIR");
 	return T_DIR;
 }
 
 "__NAMESPACE__" {
-	yytextToLval();
+	addSymbol("T_NS_C");
 	return T_NS_C;
 }
 
 "::" {
-	yytextToLval();
+	addSymbol("T_DTWO_POINTS");
 	return T_DTWO_POINTS;
 }
 
-#FIXME
-"end_heredoc" {
-	yytextToLval();
-	return T_END_HEREDOC;
-}
-
 "||" {
-	//printf("T_BOOLEAN_OR ");
-	yytextToLval();
+	addSymbol("T_BOOLEAN_OR ");
+	
 	return T_BOOLEAN_OR;
 }
 
 "&&" {
-	//printf("T_BOOLEAN_AND ");
-	yytextToLval();
+	addSymbol("T_BOOLEAN_AND ");
+	
 	return T_BOOLEAN_AND;
 }
 
 "OR" {
-	//printf("T_LOGICAL_OR ");
-	yytextToLval();
+	addSymbol("T_LOGICAL_OR ");
+	
 	return T_LOGICAL_OR;
 }
 
 "AND" {
-	//printf("T_LOCAL_AND ");
-	yytextToLval();
+	addSymbol("T_LOGICAL_AND ");
+	
 	return T_LOGICAL_AND;
 }
 
 "XOR" {
-	//printf("XOR ");
-	yytextToLval();
+	addSymbol("T_LOGICAL_XOR");
+	
 	return T_LOGICAL_XOR;
 }
 
 "<<" {
+	addSymbol("T_SL");
 	return T_SL;
 }
 
 ">>" {
-	yytextToLval();
+	addSymbol("T_SR");
 	return T_SR;
 }
 
 "===" {
-	yytextToLval();
+	addSymbol("T_IS_IDENTICAL");
 	return T_IS_IDENTICAL;
 }
 
 "!==" {
-	yytextToLval();
+	addSymbol("T_IS_NOT_IDENTICAL");
 	return T_IS_NOT_IDENTICAL;
 }
 
 "==" {
-	yytextToLval();
+	addSymbol("T_IS_EQUAL");
 	return T_IS_EQUAL;
 }
 
 "!="|"<>" {
-	yytextToLval();
+	addSymbol("T_IS_NOT_EQUAL");
 	return T_IS_NOT_EQUAL;
 }
 
 "<=" {
-	yytextToLval();
+	addSymbol("T_IS_SMALLER_OR_EQUAL");
 	return T_IS_SMALLER_OR_EQUAL;
 }
 
 ">=" {
-	yytextToLval();
+	addSymbol("T_IS_GREATER_OR_EQUAL");
 	return T_IS_GREATER_OR_EQUAL;
 }
 
 "*\*" {
-	yytextToLval();
+	addSymbol("T_POW");
 	return T_POW;
 }
 
 b?['] {
-	//printf("T_CONSTANT_ENCAPSED_STRING ");
+	addSymbol("T_CONSTANT_ENCAPSED_STRING");
 	return T_CONSTANT_ENCAPSED_STRING;
 }
 
 
 b?["\""] {
-	//printf("T_CONSTANT_ENCAPSED_STRING ");
+	addSymbol("T_CONSTANT_ENCAPSED_STRING");
 	return T_CONSTANT_ENCAPSED_STRING;
 }
 
@@ -219,19 +211,19 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 }
 
 {LNUM} {
-	//printf("T_LNUMBER ");
-	yytextToLval();
+	addSymbol("T_LNUMBER");
+	
 	return T_LNUMBER;
 }
 
 {DNUM}|{EXPONENT_DNUM} {
-	//printf("T_DNUMBER ");
+	addSymbol("T_DNUMBER");
 	return T_DNUMBER;
 }
 
 {LABEL} {	
-	//printf("T_STRING ");
-	yytextToLval();
+	addSymbol("T_STRING");
+	
 	return T_STRING; 
 }
 
@@ -241,8 +233,11 @@ b?"<<<"{TABS_AND_SPACES}({LABEL}|([']{LABEL}['])|(["]{LABEL}["])){NEWLINE} {
 
 %%
 
-void yytextToLval() {
-	yylval.text = (char*) malloc(strlen(yytext) + 1);
-	strcpy(yylval.text, yytext);
+void addSymbol(char *tok) {
+	stToken[stID] = (char*) malloc(strlen(tok) + 1);
+	stValue[stID] = (char*) malloc(strlen(yytext) + 1);
+	strcpy(stToken[stID], tok);
+	strcpy(stValue[stID], yytext);
+	stID++;
 }
 
