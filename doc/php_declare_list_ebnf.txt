@@ -1,0 +1,103 @@
+/* Todos los elementos escritos en mayúsculas y que empiezan con T_ son tokens en el archivo de Flex. Representan símbolos terminales, los cuales son reconocidos por el analizador léxico generado a partir de Flex. */
+
+declare_list ::=
+		T_STRING '=' static_scalar 
+	|	T_STRING '=' static_scalar T_END 		
+	|	declare_list ',' T_STRING '=' static_scalar 
+	|	declare_list ',' T_STRING '=' static_scalar T_END 
+;
+
+
+static_scalar ::=
+		common_scalar 
+	|	static_class_name_scalar 
+	|	namespace_name  
+	|	T_NAMESPACE T_NS_SEPARATOR namespace_name 
+	|	T_NS_SEPARATOR namespace_name 
+	|	T_ARRAY '(' static_array_pair_list ')' 
+	|	'[' static_array_pair_list ']' 
+	|	static_class_constant 
+	|	T_CLASS_C 
+	|	static_operation 
+;
+
+
+common_scalar ::=
+		T_LNUMBER  
+	|	T_DNUMBER  
+	|	T_CONSTANT_ENCAPSED_STRING 
+	|	T_LINE  
+	|	T_FILE  
+	|	T_DIR    
+	|	T_TRAIT_C 
+	|	T_METHOD_C 
+	|	T_FUNC_C 
+	|	T_NS_C 
+;
+static_class_name_scalar ::=
+	class_name T_DTWO_POINTS 
+;
+namespace_name ::=
+		T_STRING 
+	|	namespace_name T_NS_SEPARATOR T_STRING 
+;
+static_array_pair_list ::=
+		/* empty */ 
+	|	non_empty_static_array_pair_list possible_comma 
+;
+static_class_constant ::=
+		class_name T_DTWO_POINTS T_STRING 
+;
+static_operation ::=
+		static_scalar '[' static_scalar ']' 
+	|	static_scalar '+' static_scalar 
+	|	static_scalar '-' static_scalar 
+	|	static_scalar '*' static_scalar 
+	|	static_scalar T_POW static_scalar 
+	|	static_scalar '/' static_scalar 
+	|	static_scalar '%' static_scalar 
+	|	'!' static_scalar 
+	|	'~' static_scalar 
+	|	static_scalar '|' static_scalar 
+	|	static_scalar '&' static_scalar 
+	|	static_scalar '^' static_scalar 
+	|	static_scalar T_SL static_scalar 
+	|	static_scalar T_SR static_scalar 
+	|	static_scalar '.' static_scalar 
+	|	static_scalar T_LOGICAL_XOR static_scalar 
+	|	static_scalar T_LOGICAL_AND static_scalar 
+	|	static_scalar T_LOGICAL_OR static_scalar 
+	|	static_scalar T_BOOLEAN_AND static_scalar 
+	|	static_scalar T_BOOLEAN_OR static_scalar 
+	|	static_scalar T_IS_IDENTICAL static_scalar 
+	|	static_scalar T_IS_NOT_IDENTICAL static_scalar 
+	|	static_scalar T_IS_EQUAL static_scalar 
+	|	static_scalar T_IS_NOT_EQUAL static_scalar 
+	|	static_scalar '<' static_scalar 
+	|	static_scalar '>' static_scalar 
+	|	static_scalar T_IS_SMALLER_OR_EQUAL static_scalar 
+	|	static_scalar T_IS_GREATER_OR_EQUAL static_scalar 
+	|	static_scalar '?' ':' static_scalar 
+	|	static_scalar '?' static_scalar ':' static_scalar 
+	|	'+' static_scalar 
+	|	'-' static_scalar 
+	|	'(' static_scalar ')' 
+;
+
+
+class_name ::=
+		T_STATIC 
+	|	namespace_name 
+	|	T_NAMESPACE T_NS_SEPARATOR namespace_name 
+	|	T_NS_SEPARATOR namespace_name 
+;
+non_empty_static_array_pair_list ::=
+		non_empty_static_array_pair_list ',' static_scalar T_DOUBLE_ARROW static_scalar 
+	|	non_empty_static_array_pair_list ',' static_scalar 
+	|	static_scalar T_DOUBLE_ARROW static_scalar 
+	|	static_scalar 
+;
+possible_comma ::=
+		/* empty */ 
+	|	',' 
+;
