@@ -23,6 +23,7 @@
 	} treeLevel[1024];
 	int tLevel = 0;
 	int tID = 0;
+	int found_errors = 0;
 %}
 
 %union {
@@ -90,6 +91,18 @@ declare_list:
 	|	T_STRING '=' static_scalar T_END { addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }		
 	|	declare_list ',' T_STRING '=' static_scalar { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel(); }
 	|	declare_list ',' T_STRING '=' static_scalar T_END { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }
+	|  	'=' static_scalar { printf("Falta T_STRING antes del '='.\n"); }
+	|	T_STRING '=' T_END { printf("Falta static_scalar después del '='.\n"); }
+	|	static_scalar '=' static_scalar T_END { printf("Se esperaba T_STRING,y no static_scalar, antes del '='. Formato: T_STRING = static_scalar\n"); }
+	|	declare_list T_STRING '=' static_scalar { printf("Se esperaba una ',' antes de T_STRING\n"); } /*Reconocimiento de ERRORES desde aquí*/
+	|	declare_list ',' T_STRING static_scalar { printf("Se esperaba un '=' después de T_STRING\n"); }
+	|	declare_list ',' '=' static_scalar { printf("Falta T_STRING antes del '='. Formato: T_STRING = static_scalar\n"); }
+	|	declare_list ',' T_STRING '=' { printf("Falta static_scalar después del '='. Formato: T_STRING = static_scalar\n"); }
+	|	declare_list T_STRING '=' static_scalar T_END { printf("Se esperaba una ',' antes de T_STRING\n"); }
+	|	declare_list ',' T_STRING static_scalar T_END { printf("Se esperaba un '=' después de T_STRING\n"); }
+	|	declare_list ',' '=' static_scalar T_END { printf("Falta T_STRING antes del '='. Formato: T_STRING = static_scalar\n"); }
+	|	declare_list ',' T_STRING '=' T_END { printf("Falta static_scalar después del '='. Formato: T_STRING = static_scalar\n"); }
+	|	declare_list ',' static_scalar '=' static_scalar T_END { printf("Falta static_scalar después del '='. Formato: T_STRING = static_scalar\n"); }
 ;
 
 
@@ -190,7 +203,8 @@ possible_comma:
 %%
 
 int yyerror(char *s) {
-	printf("Error: %s en línea %d\n", s, lines);
+	printf("Error: [%s] en línea %d\n\n", s, lines);
+	found_errors++;
 	return 0;
 }
 
@@ -222,7 +236,7 @@ void addLevel() {
 	tLevel++;
 }
 
-/* LRULRU */
+/* Funciones más importantes para imprimir árbol sintáctico y la tabla de símbolos */
 
 int printTreeLevel(int n, int i) {
 	int j;
@@ -266,17 +280,22 @@ int makeTree(int i) {
 }
 
 void printTree() {
-	int fnt = makeTree(tLevel);
-	int i = 0;
-	for(i=0; ; i++) {
-		if(printTreeLevel(tLevel, i) == fnt) {
+	if(found_errors > 0) {
+		printf("No se puede imprimir el árbol sintáctico debido a que se encontraron errores.\n");
+	}
+	else {
+		int fnt = makeTree(tLevel);
+		int i = 0;
+		for(i=0; ; i++) {
+			if(printTreeLevel(tLevel, i) == fnt) {
+				printf("\n");
+				printTreeLevel(tLevel, i+1);
+				printf("\n");
+				printTreeLevel(tLevel, i+2);
+				break;
+			}
 			printf("\n");
-			printTreeLevel(tLevel, i+1);
-			printf("\n");
-			printTreeLevel(tLevel, i+2);
-			break;
 		}
-		printf("\n");
 	}
 }
 

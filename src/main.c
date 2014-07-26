@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 			printf("\n");
 			
 			if(opcion == 1) {
-				printf("Especificacion...\n");
+				printf("Para ver la especificación y cómo utilizar el analizador, abra el archivo 'Especificación de proyecto.pdf'. Este se encuentra en la carpeta principal del proyecto.\n\n");
 			}
 			else if (opcion == 2) {
 				yyin = stdin;
