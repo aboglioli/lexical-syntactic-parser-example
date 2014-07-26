@@ -6,10 +6,12 @@
 	FILE *yyout;
 	int lines;
 
+	// Se usan en el análisis léxico para almacenar los tokens y sus respectivos valores.
 	char *stToken[1024];
 	char *stValue[1024];
 	int stID ;
 
+	// Se usa en el análisis sintáctico para almacenar los niveles y los símbolos encontrados
 	struct s_treeLevel;
 	struct s_token {
 		char *name;
@@ -91,13 +93,21 @@ declare_list:
 	|	T_STRING '=' static_scalar T_END { addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }		
 	|	declare_list ',' T_STRING '=' static_scalar { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel(); }
 	|	declare_list ',' T_STRING '=' static_scalar T_END { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }
+	/*Reconocimiento de ERRORES desde aquí*/
 	|  	'=' static_scalar { printf("Falta T_STRING antes del '='.\n"); }
+	|  	'=' static_scalar T_END { printf("Falta T_STRING antes del '='.\n"); }
+	|	T_STRING '=' { printf("Falta static_scalar después del '='.\n"); }
 	|	T_STRING '=' T_END { printf("Falta static_scalar después del '='.\n"); }
+	|	static_scalar '=' static_scalar { printf("Se esperaba T_STRING,y no static_scalar, antes del '='. Formato: T_STRING = static_scalar\n"); }
 	|	static_scalar '=' static_scalar T_END { printf("Se esperaba T_STRING,y no static_scalar, antes del '='. Formato: T_STRING = static_scalar\n"); }
-	|	declare_list T_STRING '=' static_scalar { printf("Se esperaba una ',' antes de T_STRING\n"); } /*Reconocimiento de ERRORES desde aquí*/
+	|	declare_list T_STRING '=' static_scalar { printf("Se esperaba una ',' antes de T_STRING\n"); }
+	|	declare_list T_STRING '=' static_scalar T_END { printf("Se esperaba una ',' antes de T_STRING\n"); }
 	|	declare_list ',' T_STRING static_scalar { printf("Se esperaba un '=' después de T_STRING\n"); }
+	|	declare_list ',' T_STRING static_scalar T_END { printf("Se esperaba un '=' después de T_STRING\n"); }
 	|	declare_list ',' '=' static_scalar { printf("Falta T_STRING antes del '='. Formato: T_STRING = static_scalar\n"); }
+	|	declare_list ',' '=' static_scalar T_END { printf("Falta T_STRING antes del '='. Formato: T_STRING = static_scalar\n"); }
 	|	declare_list ',' T_STRING '=' { printf("Falta static_scalar después del '='. Formato: T_STRING = static_scalar\n"); }
+	|	declare_list ',' T_STRING '=' T_END{ printf("Falta static_scalar después del '='. Formato: T_STRING = static_scalar\n"); }
 	|	declare_list T_STRING '=' static_scalar T_END { printf("Se esperaba una ',' antes de T_STRING\n"); }
 	|	declare_list ',' T_STRING static_scalar T_END { printf("Se esperaba un '=' después de T_STRING\n"); }
 	|	declare_list ',' '=' static_scalar T_END { printf("Falta T_STRING antes del '='. Formato: T_STRING = static_scalar\n"); }
@@ -237,7 +247,7 @@ void addLevel() {
 }
 
 /* Funciones más importantes para imprimir árbol sintáctico y la tabla de símbolos */
-
+// Imprime cada nivel del árbol, desarrollando desde la raíz hacia abajo (ramas)
 int printTreeLevel(int n, int i) {
 	int j;
 	int printed_no_terminals = 0;
@@ -245,7 +255,7 @@ int printTreeLevel(int n, int i) {
 		if(treeLevel[n].token[j].no_terminal) {
 			printed_no_terminals++;
 			if(i>0) {
-				if(i == 1) {
+				if(i == 1) { // Resalta los símbolso que se agregaron en reemplazo del no terminal encontrado.
 					printf("\x1b[01;32m");
 					printed_no_terminals += printTreeLevel(treeLevel[n].token[j].level_ref, i-1);
 					printf("\x1b[00m");
@@ -255,6 +265,7 @@ int printTreeLevel(int n, int i) {
 				}
 			}
 			else {
+				// Imprime los no terminales entre < >
 				printf("<%s> ", treeLevel[n].token[j].name);
 			}
 		}
@@ -265,13 +276,14 @@ int printTreeLevel(int n, int i) {
 	return printed_no_terminals;
 }
 
+// Arma el árbol. Coloca en la variable "level_ref" de los no terminales el nivel, es decir, el conjunto de símbolos al que hacen referencia para luego reemplazarlos.
 int makeTree(int i) {
 	int j;
 	int found_no_terminals=0;
 	for(j=treeLevel[i].cant_tokens-1; j>=0; --j) {
 		if(treeLevel[i].token[j].no_terminal == 1) {
 			found_no_terminals++;
-			treeLevel[i].token[j].level_ref = i-found_no_terminals;
+			treeLevel[i].token[j].level_ref = i-found_no_terminals; //La raíz del arbol es el último nivel agregado a la estructura, por lo que no es 0, así que hay que invertir el orden en que se lee la estructura.
 			//printf("Asignado %d a %s(%d)\n", treeLevel[i].token[j].level_ref, treeLevel[i].token[j].name, i);
 			found_no_terminals += makeTree(i-found_no_terminals);
 		}
@@ -279,6 +291,7 @@ int makeTree(int i) {
 	return found_no_terminals;
 }
 
+// Imprime el árbol sintáctico. Empieza por la raíz o primer nivel y va reemplazando los no terminales por el conjunto de símbolos que hacen referencia, los cuales derivan de este.
 void printTree() {
 	if(found_errors > 0) {
 		printf("No se puede imprimir el árbol sintáctico debido a que se encontraron errores.\n");
@@ -299,6 +312,7 @@ void printTree() {
 	}
 }
 
+// Imprime la tabla de símbolos generada en el análisis léxico (archivo declare_list.l, de flex)
 void printSymbolTable() {
 	int i;
 	for(i=0; i<stID; i++) {
