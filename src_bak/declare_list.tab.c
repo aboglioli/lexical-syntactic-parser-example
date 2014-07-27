@@ -71,12 +71,12 @@
 	FILE *yyout;
 	int lines;
 
-	// Se usan en el analisis lexico para almacenar los tokens y sus respectivos valores.
+	// Se usan en el análisis léxico para almacenar los tokens y sus respectivos valores.
 	char *stToken[1024];
 	char *stValue[1024];
 	int stID ;
 
-	// Se usa en el analisis sintactico para almacenar los niveles y los simbolos encontrados
+	// Se usa en el análisis sintáctico para almacenar los niveles y los símbolos encontrados
 	struct s_treeLevel;
 	struct s_token {
 		char *name;
@@ -1617,13 +1617,13 @@ yyreduce:
 
   case 8:
 #line 99 "declare_list.y" /* yacc.c:1646  */
-    { printf("Falta static_scalar despues del '='.\n"); }
+    { printf("Falta static_scalar después del '='.\n"); }
 #line 1622 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
 #line 100 "declare_list.y" /* yacc.c:1646  */
-    { printf("Falta static_scalar despues del '='.\n"); return 0; }
+    { printf("Falta static_scalar después del '='.\n"); return 0; }
 #line 1628 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1653,13 +1653,13 @@ yyreduce:
 
   case 14:
 #line 105 "declare_list.y" /* yacc.c:1646  */
-    { printf("Se esperaba un '=' despues de T_STRING\n"); }
+    { printf("Se esperaba un '=' después de T_STRING\n"); }
 #line 1658 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 106 "declare_list.y" /* yacc.c:1646  */
-    { printf("Se esperaba un '=' despues de T_STRING\n"); return 0; }
+    { printf("Se esperaba un '=' después de T_STRING\n"); return 0; }
 #line 1664 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1677,13 +1677,13 @@ yyreduce:
 
   case 18:
 #line 109 "declare_list.y" /* yacc.c:1646  */
-    { printf("Falta static_scalar despues del '='. Formato: T_STRING = static_scalar\n"); }
+    { printf("Falta static_scalar después del '='. Formato: T_STRING = static_scalar\n"); }
 #line 1682 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 110 "declare_list.y" /* yacc.c:1646  */
-    { printf("Falta static_scalar despues del '='. Formato: T_STRING = static_scalar\n"); return 0; }
+    { printf("Falta static_scalar después del '='. Formato: T_STRING = static_scalar\n"); return 0; }
 #line 1688 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1761,7 +1761,7 @@ yyreduce:
 
   case 32:
 #line 128 "declare_list.y" /* yacc.c:1646  */
-    { printf("Se esperaba namespace_name despues de T_NS_SEPARATOR\n"); }
+    { printf("Se esperaba namespace_name después de T_NS_SEPARATOR\n"); }
 #line 1766 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1773,13 +1773,13 @@ yyreduce:
 
   case 34:
 #line 130 "declare_list.y" /* yacc.c:1646  */
-    { printf("No se cerro T_ARRAY correctamente. Falta ')' al final.\n"); }
+    { printf("No se cerró T_ARRAY correctamente. Falta ')' al final.\n"); }
 #line 1778 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
 #line 131 "declare_list.y" /* yacc.c:1646  */
-    { printf("No se abrio T_ARRAY correctamente. Falta '(' al inicio.\n"); }
+    { printf("No se abrió T_ARRAY correctamente. Falta '(' al inicio.\n"); }
 #line 1784 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1863,7 +1863,7 @@ yyreduce:
 
   case 49:
 #line 154 "declare_list.y" /* yacc.c:1646  */
-    { printf("Se esperaba T_STRING despues de T_NS_SEPARATOR.\n"); }
+    { printf("Se esperaba T_STRING después de T_NS_SEPARATOR.\n"); }
 #line 1868 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -2139,7 +2139,7 @@ yyreduce:
 
   case 95:
 #line 213 "declare_list.y" /* yacc.c:1646  */
-    { printf("Se esperaba static_scalar despues de T_DOUBLE_ARROW.\n"); }
+    { printf("Se esperaba static_scalar después de T_DOUBLE_ARROW.\n"); }
 #line 2144 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -2151,13 +2151,13 @@ yyreduce:
 
   case 97:
 #line 215 "declare_list.y" /* yacc.c:1646  */
-    { printf("Se esperaba static_scalar despues de T_DOUBLE_ARROW.\n"); }
+    { printf("Se esperaba static_scalar después de T_DOUBLE_ARROW.\n"); }
 #line 2156 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
   case 98:
 #line 216 "declare_list.y" /* yacc.c:1646  */
-    { printf("Se esperaba static_scalar despues de T_DOUBLE_ARROW.\n"); }
+    { printf("Se esperaba static_scalar después de T_DOUBLE_ARROW.\n"); }
 #line 2162 "declare_list.tab.c" /* yacc.c:1646  */
     break;
 
@@ -2406,7 +2406,7 @@ yyreturn:
 
 
 int yyerror(char *s) {
-	printf("\nError: [%s] en linea %d\n\n", s, lines);
+	printf("\nError: [%s] en línea %d\n\n", s, lines);
 	found_errors++;
 	return 0;
 }
@@ -2439,8 +2439,8 @@ void addLevel() {
 	tLevel++;
 }
 
-/* Funciones mas importantes para imprimir arbol sintactico y la tabla de simbolos */
-// Imprime la tabla de simbolos generada en el analisis lexico (archivo declare_list.l, de flex)
+/* Funciones más importantes para imprimir árbol sintáctico y la tabla de símbolos */
+// Imprime la tabla de símbolos generada en el análisis léxico (archivo declare_list.l, de flex)
 void printSymbolTable() {
 	int i;
 	for(i=0; i<stID; i++) {
@@ -2448,14 +2448,14 @@ void printSymbolTable() {
 	}
 }
 
-// Arma el arbol. Coloca en la variable "level_ref" de los no terminales el nivel, es decir, el conjunto de simbolos al que hacen referencia para luego reemplazarlos.
+// Arma el árbol. Coloca en la variable "level_ref" de los no terminales el nivel, es decir, el conjunto de símbolos al que hacen referencia para luego reemplazarlos.
 int makeTree(int i) {
 	int j;
 	int found_no_terminals=0;
 	for(j=treeLevel[i].cant_tokens-1; j>=0; --j) {
 		if(treeLevel[i].token[j].no_terminal == 1) {
 			found_no_terminals++;
-			treeLevel[i].token[j].level_ref = i-found_no_terminals; //La raiz del arbol es el ultimo nivel agregado a la estructura, por lo que no es 0, asi que hay que invertir el orden en que se lee la estructura.
+			treeLevel[i].token[j].level_ref = i-found_no_terminals; //La raíz del arbol es el último nivel agregado a la estructura, por lo que no es 0, así que hay que invertir el orden en que se lee la estructura.
 			//printf("Asignado %d a %s(%d)\n", treeLevel[i].token[j].level_ref, treeLevel[i].token[j].name, i);
 			found_no_terminals += makeTree(i-found_no_terminals);
 		}
@@ -2463,7 +2463,7 @@ int makeTree(int i) {
 	return found_no_terminals;
 }
 
-// Imprime cada nivel del arbol, desarrollando desde la raiz hacia abajo (ramas)
+// Imprime cada nivel del árbol, desarrollando desde la raíz hacia abajo (ramas)
 int printTreeLevel(int n, int i) {
 	int j;
 	int printed_no_terminals = 0;
@@ -2471,10 +2471,10 @@ int printTreeLevel(int n, int i) {
 		if(treeLevel[n].token[j].no_terminal) {
 			printed_no_terminals++;
 			if(i>0) {
-				if(i == 1) { // Resalta los simbolso que se agregaron en reemplazo del no terminal encontrado.
-					printf("{");
+				if(i == 1) { // Resalta los símbolso que se agregaron en reemplazo del no terminal encontrado.
+					printf("\x1b[01;32m");
 					printed_no_terminals += printTreeLevel(treeLevel[n].token[j].level_ref, i-1);
-					printf("} ");
+					printf("\x1b[00m");
 				}
 				else {
 					printed_no_terminals += printTreeLevel(treeLevel[n].token[j].level_ref, i-1);
@@ -2493,10 +2493,10 @@ int printTreeLevel(int n, int i) {
 }
 
 
-// Imprime el arbol sintactico. Empieza por la raiz o primer nivel y va reemplazando los no terminales por el conjunto de simbolos que hacen referencia, los cuales derivan de este.
+// Imprime el árbol sintáctico. Empieza por la raíz o primer nivel y va reemplazando los no terminales por el conjunto de símbolos que hacen referencia, los cuales derivan de este.
 void printTree() {
 	if(found_errors > 0) {
-		printf("No se puede imprimir el arbol sintactico debido a que se encontraron errores.\n");
+		printf("No se puede imprimir el árbol sintáctico debido a que se encontraron errores.\n");
 	}
 	else {
 		int fnt = makeTree(tLevel);
@@ -2529,7 +2529,7 @@ int printTreeLevelToHTML(int n, int i, FILE *htmlFile) {
 		if(treeLevel[n].token[j].no_terminal) {
 			printed_no_terminals++;
 			if(i>0) {
-				if(i == 1) { // Resalta los simbolso que se agregaron en reemplazo del no terminal encontrado.
+				if(i == 1) { // Resalta los símbolso que se agregaron en reemplazo del no terminal encontrado.
 					fprintf(htmlFile, "<i>");
 					printed_no_terminals += printTreeLevelToHTML(treeLevel[n].token[j].level_ref, i-1, htmlFile);
 					fprintf(htmlFile, "</i>");
@@ -2552,7 +2552,7 @@ int printTreeLevelToHTML(int n, int i, FILE *htmlFile) {
 
 void printTreeToHTML(FILE *htmlFile) {
 	if(found_errors > 0) {
-		printf("No se puede imprimir el arbol sintactico debido a que se encontraron errores.\n");
+		printf("No se puede imprimir el árbol sintáctico debido a que se encontraron errores.\n");
 	}
 	else {
 		int fnt = makeTree(tLevel);
