@@ -5,13 +5,14 @@ extern FILE *yyin;
 extern FILE *yyout;
 extern int yyparse(void);
 extern int lines;
+extern int found_errors;
 
 int main(int argc, char *argv[]) {
-	int opcion;
-	char archivo[1024];
+	int option;
+	char file[1024];
 
-	printf("\033[01;31m ### Analizador lexico y sintactico ###\033[00m\n");
-	printf("\x1B[01;33m --- PHP: declare_list ---\x1B[0m\n\n");
+	printf(" ### Analizador lexico y sintactico ###\n");
+	printf(" --- PHP: declare_list ---\n\n");
 
 	if(argc > 1) {
 		printf("[ Analizando el archivo %s. ]\n\n", argv[1]);
@@ -19,31 +20,31 @@ int main(int argc, char *argv[]) {
 	}
 	else {
 		for(;;) {
-			printf("· 1) Ver especificación del proyecto\n· 2) Ingresar texto\n· 3) Abrir archivo de texto\n· 4) Salir\n\n");
-			printf("Opcion> ");
-			scanf("%d", &opcion);
+			printf("# 1) Ver especificación del proyecto\n# 2) Ingresar texto\n# 3) Abrir file de texto\n# 4) Salir\n\n");
+			printf("Opción> ");
+			scanf("%d", &option);
 			printf("\n");
 			
-			if(opcion == 1) {
-				printf("Para ver la especificación y cómo utilizar el analizador, abra el archivo 'Especificación de proyecto.pdf'. Este se encuentra en la carpeta principal del proyecto.\n\n");
+			if(option == 1) {
+				printf("Para ver la especificación y cómo utilizar el analizador, abra el archive 'Especificación de proyecto.pdf'. Este se encuentra en la carpeta principal del proyecto.\n\n");
 			}
-			else if (opcion == 2) {
+			else if (option == 2) {
 				yyin = stdin;
 				break;
 			}
-			else if (opcion == 3) {
+			else if (option == 3) {
 				printf("Nombre de archivo> ");
-				scanf("%s", archivo);
+				scanf("%s", file);
 
-				yyin = fopen(archivo, "r");
+				yyin = fopen(file, "r");
 				if(!yyin) {
-					printf("[ERROR] No se encontró el archivo %s\n\n", archivo);
+					printf("[ERROR] No se encontró el archivo %s\n\n", file);
 				}
 				else {
 					break;
 				}
 			}
-			else if (opcion == 4) {
+			else if (option == 4) {
 				printf("Saliendo...\n");
 				return 0;
 			}
@@ -54,12 +55,38 @@ int main(int argc, char *argv[]) {
 	}
 
 	yyparse();
-	printf("\033[01;31mAnálsis léxico: tabla de símbolos\033[00m\n");
+	printf("\nAnálsis léxico: tabla de símbolos\n");
 	printSymbolTable();
 	printf("\n");
-	printf("\033[01;31mAnálisis sintáctico: derivacions\033[00m\n");
+	printf("Análisis sintáctico: derivacions\n");
 	printTree();
+
 	printf("\n\n[ Se leyeron %d lineas del archivo. ]\n", lines);
+
+	/* Creación del archivo HTML que contiene el análisis para mejorar la visual */
+	char htmlName[] = "analisis.html";
+
+	FILE *htmlFile = fopen(htmlName, "w");
+	if(!htmlFile) {
+		printf("Error al crear el archivo %s.\n", htmlName);
+		return 1;
+	}
+	fprintf(htmlFile, "<html><head><title>Proyecto de Sintaxis y Semántica de los Lenguajes. Análisis de declare_list.</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><link type=\"text/css\" rel=stylesheet href=\"src/style.css\" /></head><body><h1>Proyecto: análisis léxico y sintáctico de declare_list</h1><h2>Análisis léxico</h2><h3>Tabla de símbolos</h3>");
+	fprintf(htmlFile, "<table><tr><td><b>Token</b></td><td><b>Valor</b></td></tr>");
+	printSymbolTableToHTML(htmlFile);
+	fprintf(htmlFile, "</table>");
+	if(found_errors > 0) {
+		fprintf(htmlFile, "<h4>Se encontró %d en el análisis.</h4>", found_errors);
+	}
+	else {
+		fprintf(htmlFile, "<h2>Análisis sintáctico</h2><h3>Derivaciones del árbol sintáctico.</h3>");
+		printTreeToHTML(htmlFile);
+	}
+	fprintf(htmlFile, "<h2>Hecho por Alan Boglioli</h2>");
+	fprintf(htmlFile, "</body></html>");
+	fclose(htmlFile);
+	printf("[Se creó un archivo con el análisis.]\nBusca %s en la carpeta principal del proyecto y abrelo con el navegador\n", htmlName);
+
 
 	return 0;
 }

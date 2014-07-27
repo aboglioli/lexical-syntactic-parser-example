@@ -1,0 +1,51 @@
+body {
+	background-color: #222222;
+	color: white;
+}
+
+h1 {
+	background-color: #555555;
+	border: 3px solid black;
+	border-radius: 15px;
+	font-variant: small-caps;
+	text-align: center;
+	text-shadow: 0px 0px 5px black;
+}
+
+h2 {
+	background-color: #333333;
+	border: 2px solid black;
+	border-radius: 15px;
+	font-variant: small-caps;
+	text-align: center;
+	text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+}
+
+h3 {
+	text-shadow: 0px 0px 25px gray;
+}
+
+h4 {
+	color: red;
+	font-size: 20px;
+}
+
+table tr td {
+	border: 1px solid #303030;
+	margin: 0;
+	padding: 0px;
+}
+
+ol li {
+	margin-bottom: 2px;
+}
+
+i {
+	color: green;
+	font-style: normal;
+}
+
+b {
+	font-weight: 800;
+	/*text-shadow: 0px 0px 2px blue;*/
+}
