@@ -85,8 +85,10 @@ int main(int argc, char *argv[]) {
 	fprintf(htmlFile, "<h2>Hecho por Alan Boglioli (legajo 38507)</h2>");
 	fprintf(htmlFile, "</body></html>");
 	fclose(htmlFile);
-	printf("[Se creo un archivo con el analisis.]\nBusca %s en la carpeta principal del proyecto y abrelo con el navegador\n", htmlName);
+	printf("[Se creo un archivo con el analisis.]\nBusque %s en la carpeta principal del proyecto y abrelo con el navegador\n", htmlName);
 
+	printf("Presione una tecla para finalizar.");
+	getchar();
 
 	return 0;
 }
