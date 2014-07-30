@@ -20,4 +20,4 @@ echo "[FINISHED]"
 echo ""
 
 echo "# Moving declare_list to bin/..."
-mv declare_list ../bin/
+mv declare_list ../analizadorP4

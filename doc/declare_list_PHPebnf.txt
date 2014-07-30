@@ -1,0 +1,55 @@
+declare_list ::= T_STRING "=" static_scalar { "," T_STRING "=" static_scalar }
+
+/* Nivel 1 */
+T_STRING ::= LABEL
+
+static_scalar ::= common_scalar
+	| T_STRING
+	| "+" static_scalar
+	| "-" static_scalar
+	| "array" "(" [static_array_pair_list] ")"
+	| static_class_constant
+
+/* Nivel 2 */
+LABEL ::= (letter | "_") {letter | digit | "_"}
+
+common_scalar ::= T_LNUMBER | T_DNUMBER | T_CONSTANT_ENCAPSED_STRING | "__LINE__" | "__FILE__" | "__CLASS__" | "__METHOD__" | "__FUNCTION__"
+
+static_array_pair_list ::= static_array_pair { "," static_array_pair } [","]
+
+static_class_constant ::= T_STRING "::" T_STRING
+
+/* Nivel 3 */
+letter ::= "a".."z" | "A".."Z" | "\x7f".."\xff"
+
+digit ::= "0".."9"
+
+T_LNUMBER ::= LNUM
+
+T_DNUMBER ::= DNUM | EXPONENT_DNUM
+
+T_CONSTANT_ENCAPSED_STRING ::= single_quoted_constant_string | double_quoted_constant_string
+
+static_array_pair ::= static_scalar ["=>" static_scalar]
+
+/* Nivel 4 */
+LNUM ::= octal | decimal | hexadecinal
+
+DNUM ::= {digit} "." digit {digit} | digit {digit} "." {digit}
+
+EXPONENT_DNUM ::= (LNUM | DNUM) ("e"|"E") ["+"|"-"] LNUM
+
+single_quoted_constant_string ::= "'" { T_ANY_CHAR | "\"T_ANY_CHAR } "'"
+
+double_quoted_constant_string ::= """ { T_ANY_CHAR | "\"T_ANY_CHAR } """
+
+/* Nivel 5 */
+octal ::= "0" {"0".."7"}
+
+decimal ::= "1".."9" {digit} ;
+
+hexadecinal ::= "0x" hexdigit {hexdigit}
+
+T_ANY_CHAR = "\x00" .. "\xff" /* Código ASCII */
+
+hexdigit ::= {digit} | "a".."f" | "A".."F"

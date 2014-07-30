@@ -1,0 +1,39 @@
+<html>
+   <head>
+      <title>Proyecto de Sintaxis y Semántica de los Lenguajes. Análisis de declare_list.</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link type="text/css" rel=stylesheet href="style.css" />
+   </head>
+   <body>
+      <h1>Proyecto: análisis léxico y sintáctico de declare_list</h1>
+      <h3>Declaración a analizar</h3>
+      <p>Declaración ingresada por el usuario. Por ejemplo: </p>
+      <ul>
+         <li>s = 2,</li>
+         <li>w = "asd"</li>
+      </ul>
+      <h2>Análisis lexico</h2>
+      <h3>Tabla de símbolos</h3>
+      <table>
+         <tr>
+            <td>Token</td>
+            <td>Valor</td>
+         </tr>
+         <tr>
+            <td>T_TOKEN</td>
+            <td>valor</td>
+         </tr>
+      </table>
+      <h2>Análisis sintáctico</h2>
+      <h3>Derivaciones del árbol sintáctico.</h3>
+      <ol>
+         <li><b>&lt;no terminales&gt;</b></li>
+         <li><i>DERIVACIONES DEL NO TERMINAL ANTERIOR Y OTROS <b>&lt;no terminales&gt;</b></i></li>
+         <li>TEXTO DERIVADO HASTA EL ÚLTIMO NIVEL <i>Y DERIVACIONES DEL NO TERMINAL ANTERIOR Y OTROS <b>&lt;no terminales&gt;</b></i></li>
+         <li>DERIVACIÓN FINAL, ÚLTIMO NIVEL</li>
+      </ol>
+      <h3>Cadena analizada</h3>
+      <p>Muestra la cadena analizada, se reemplazan los valores por sus correspondientes tokens.</p>
+      <h2>Hecho por Alan Boglioli (legajo 38507)</h2>
+   </body>
+</html>

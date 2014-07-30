@@ -46,43 +46,18 @@ extern int yydebug;
   enum yytokentype
   {
     T_STRING = 258,
-    T_RET = 259,
-    T_NAMESPACE = 260,
-    T_NS_SEPARATOR = 261,
-    T_ARRAY = 262,
-    T_CLASS = 263,
-    T_CLASS_C = 264,
-    T_TRAIT_C = 265,
-    T_FUNC_C = 266,
-    T_METHOD_C = 267,
-    T_LINE = 268,
-    T_FILE = 269,
-    T_DIR = 270,
-    T_NS_C = 271,
-    T_LNUMBER = 272,
-    T_DNUMBER = 273,
-    T_CONSTANT_ENCAPSED_STRING = 274,
-    T_START_HEREDOC = 275,
-    T_END_HEREDOC = 276,
-    T_ENCAPSED_AND_WHITESPACE = 277,
-    T_DTWO_POINTS = 278,
-    T_SL = 279,
-    T_SR = 280,
-    T_LOGICAL_OR = 281,
-    T_LOGICAL_XOR = 282,
-    T_LOGICAL_AND = 283,
-    T_BOOLEAN_OR = 284,
-    T_BOOLEAN_AND = 285,
-    T_IS_EQUAL = 286,
-    T_IS_NOT_EQUAL = 287,
-    T_IS_IDENTICAL = 288,
-    T_IS_NOT_IDENTICAL = 289,
-    T_IS_SMALLER_OR_EQUAL = 290,
-    T_IS_GREATER_OR_EQUAL = 291,
-    T_STATIC = 292,
-    T_DOUBLE_ARROW = 293,
-    T_POW = 294,
-    T_END = 295
+    T_ARRAY = 259,
+    T_CLASS = 260,
+    T_FUNC = 261,
+    T_METHOD = 262,
+    T_LINE = 263,
+    T_FILE = 264,
+    T_LNUMBER = 265,
+    T_DNUMBER = 266,
+    T_CONSTANT_ENCAPSED_STRING = 267,
+    T_DOUBLE_TWO_POINTS = 268,
+    T_DOUBLE_ARROW = 269,
+    T_END = 270
   };
 #endif
 
@@ -91,13 +66,13 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 31 "declare_list.y" /* yacc.c:1909  */
+#line 34 "declare_list.y" /* yacc.c:1909  */
 
 	int val;
 	float f;
 	char *text;
 
-#line 101 "declare_list.tab.h" /* yacc.c:1909  */
+#line 76 "declare_list.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

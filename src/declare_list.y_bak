@@ -5,7 +5,6 @@
 	FILE *yyin;
 	FILE *yyout;
 	int lines;
-	int token_num;
 
 	// Se usan en el analisis lexico para almacenar los tokens y sus respectivos valores.
 	char *stToken[1024];
@@ -63,23 +62,32 @@
 
 declare_list:
 		T_STRING '=' static_scalar { addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel(); }
-	|	declare_list ',' T_STRING '=' static_scalar { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel();}
-	|	declare_list T_END { addNT("declare_list");return 0; }
+	|	T_STRING '=' static_scalar T_END { addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }		
+	|	declare_list ',' T_STRING '=' static_scalar { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addLevel(); }
+	|	declare_list ',' T_STRING '=' static_scalar T_END { addNT("declare_list"); addT(","); addT("T_STRING"); addT("="); addNT("static_scalar"); addT("T_END"); return 0; }
 	
 	/*Reconocimiento de ERRORES más frecuentes desde aqui*/
-	|  	T_STRING { addE("Solo se encontro T_STRING"); }
-	|  	'=' { addE("Solo se encontro '='"); }
-	|  	static_scalar { addE("Solo se encontro static_scalar"); }
-	|  	'=' static_scalar { addE("Falta T_STRING antes de '='"); }
-	|	T_STRING '=' { addE("Falta static_scalar despues de '='"); }
-	|	static_scalar '=' static_scalar { addE("Se esperaba T_STRING en lugar de static_scalar antes de '='"); }
-	|  	declare_list ',' T_STRING { addE("Solo se encontro T_STRING"); }
-	|  	declare_list ',' '=' { addE("Solo se encontro '='"); }
-	|  	declare_list ',' static_scalar { addE("Solo se encontro static_scalar"); }
-	|  	declare_list ',' '=' static_scalar { addE("Falta T_STRING antes de '='"); }
-	|	declare_list ',' T_STRING '=' { addE("Falta static_scalar despues de '='"); }
-	|	declare_list ',' static_scalar '=' static_scalar { addE("Se esperaba T_STRING en lugar de static_scalar antes de '='"); }
-	|	declare_list T_STRING '=' static_scalar { addE("Falta ',' como separador"); }
+	|  	T_STRING { addE("Formato: T_STRING = static_scalar. Solo se encontro T_STRING."); }
+	|  	static_scalar { addE("Formato: T_STRING = static_scalar. Solo se encontro static_scalar."); }
+	|  	'=' { addE("Formato: T_STRING = static_scalar. Solo se encontro '='."); }
+	|  	'=' T_END { addE("Formato: T_STRING = static_scalar"); }
+	|  	'=' static_scalar { addE("Falta T_STRING antes del '='."); }
+	|  	'=' static_scalar T_END { addE("Falta T_STRING antes del '='."); return 0; }
+	|	T_STRING '=' { addE("Falta static_scalar despues del '='."); }
+	|	T_STRING '=' T_END { addE("Falta static_scalar despues del '='."); return 0; }
+	|	static_scalar '=' static_scalar { addE("Se esperaba T_STRING,y no static_scalar, antes del '='. Formato: T_STRING = static_scalar"); }
+	|	static_scalar '=' static_scalar T_END { addE("Se esperaba T_STRING,y no static_scalar, antes del '='. Formato: T_STRING = static_scalar"); return 0; }
+	|	declare_list T_STRING '=' static_scalar { addE("Se esperaba una ',' antes de T_STRING"); }
+	|	declare_list T_STRING '=' static_scalar T_END { addE("Se esperaba una ',' antes de T_STRING"); return 0; }
+	|	declare_list ',' T_STRING '=' { addE("Falta static_scalar despues del '='."); }
+	|	declare_list ',' T_STRING '=' T_END { addE("Falta static_scalar despues del '='."); return 0; }
+	|	declare_list ',' T_STRING static_scalar { addE("Se esperaba un '=' despues de T_STRING"); }
+	|	declare_list ',' T_STRING static_scalar T_END { addE("Se esperaba un '=' despues de T_STRING"); return 0; }
+	|	declare_list ',' '=' static_scalar { addE("Falta T_STRING antes del '='. Formato: T_STRING = static_scalar"); }
+	|	declare_list ',' '=' static_scalar T_END { addE("Falta T_STRING antes del '='. Formato: T_STRING = static_scalar"); return 0; }
+	|	declare_list ',' static_scalar '=' static_scalar { addE("Se esperaba T_STRING, no static_scalar. Formato: T_STRING = static_scalar"); }
+	|	declare_list ',' static_scalar '=' static_scalar T_END { addE("Se esperaba T_STRING, no static_scalar. Formato: T_STRING = static_scalar"); return 0; }
+	|	declare_list ',' T_STRING '=' static_scalar ',' T_END { addE("declare_list no puede terminar con ','."); return 0; }
 ;
 
 
@@ -87,9 +95,8 @@ static_scalar:
 		common_scalar { addNT("common_scalar"); addLevel(); }
 	|   T_STRING { addT("T_STRING"); addLevel(); }
 	|	'+' static_scalar { addT("+"); addNT("static_scalar"); addLevel(); }
-	|	'-' static_scalar { addT("-"); addNT("static_scalar"); addLevel(); }
+	|	'-' static_scalar { addT("+"); addNT("static_scalar"); addLevel(); }
 	|	T_ARRAY '(' static_array_pair_list ')' { addT("T_ARRAY"); addT("("); addNT("static_array_pair_list"); addT(")"); addLevel(); }
-	|	T_ARRAY '(' static_array_pair_list ',' ')' { addT("T_ARRAY"); addT("("); addNT("static_array_pair_list"); addT(","); addT(")"); addLevel(); }
 	|	static_class_constant { addNT("static_class_constant"); addLevel(); }
 	
 	/*Reconocimiento de ERRORES más frecuentes desde aqui*/
@@ -111,30 +118,19 @@ common_scalar:
 ;
 
 static_array_pair_list:
-		/* vacío */ { addT("T_EMPTY"); addLevel(); }
-	|	static_array_pair { addNT("static_array_pair"); addLevel(); }
+		static_array_pair { addNT("static_array_pair"); addLevel(); }
 	|	static_array_pair_list ',' static_array_pair { addNT("static_array_pair_list"); addT(","); addNT("static_array_pair"); addLevel(); }
-
-	/* ERROREs más frecuentas */
-	|	',' static_array_pair { addE("La lista dentro de array no puede comenzar con ','"); }
-	|	static_array_pair_list ',' { addE("La lista dentro de array tiene argumentos vacios"); }
+	|	static_array_pair_list ',' static_array_pair ',' { addNT("static_array_pair_list"); addT(","); addNT("static_array_pair"); addT(","); addLevel(); }
 ;
 
 static_class_constant:
 		T_STRING T_DOUBLE_TWO_POINTS T_STRING { addT("T_STRING"); addT("T_DOUBLE_TWO_POINTS"); addT("T_STRING"); addLevel(); }
-
-	/* Reconocimiento de ERRORES más frecuentes */
-	|	T_DOUBLE_TWO_POINTS T_STRING { addE("No se encontro T_STRING antes de T_DOUBLE_TWO_POINTS"); }
-	|	T_STRING T_DOUBLE_TWO_POINTS { addE("No se encontro T_STRING despues de T_DOUBLE_TWO_POINTS"); }
 ;
 
 static_array_pair:
-		static_scalar { addNT("static_scalar"); addLevel(); }
+		/* vacío */ { addT("T_EMPTY"); addLevel(); }
+	|	static_scalar { addNT("static_scalar"); addLevel(); }
 	|	static_scalar T_DOUBLE_ARROW static_scalar { addNT("static_scalar"); addT("T_DOUBLE_ARROW"); addNT("static_scalar"); addLevel(); }
-
-	/* Reconocimiento de ERRORES más frecuentes */
-	|	T_DOUBLE_ARROW static_scalar { addE("No se encontro static_scalar antes de T_DOUBLE_ARROW"); }
-	|	static_scalar T_DOUBLE_ARROW { addE("No se encontro static_scalar despues de T_DOUBLE_ARROW"); }
 
 %%
 
@@ -266,13 +262,12 @@ void printTree() {
 // Funciones para imprimir en archivo HTML.
 void printErrorsToHTML(FILE *htmlFile) {
 	fprintf(htmlFile, "<h4>Se encontraron %d errores en el análisis.</h4>", found_errors);
-	fprintf(htmlFile, "<p style=\"color:orange;\">Formato: T_STRING = static_scalar</p>", found_errors);
 	int i;
-	fprintf(htmlFile, "<ul>");
+	fprintf(htmlFile, "<ol>");
 	for(i=0; i<found_errors; i++) {
 		fprintf(htmlFile, "<li>%s</li>", error[i]);
 	}
-	fprintf(htmlFile, "</ul>");
+	fprintf(htmlFile, "</ol>");
 }
 
 void printStatementToHTML(FILE *htmlFile) {
@@ -280,7 +275,7 @@ void printStatementToHTML(FILE *htmlFile) {
 	fprintf(htmlFile, "<ul><li>");
 	for(i=0; i<stID; i++) {
 		fprintf(htmlFile, "%s ", stValue[i]);
-		if(strcmp(stValue[i], ",") == 0)  {
+		if(strcmp(stValue[i], ",") == 0) {
 			fprintf(htmlFile, "</li><li>");
 		}
 	}
