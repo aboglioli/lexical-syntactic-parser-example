@@ -56,7 +56,9 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	while(getchar() != '\n');
+	/* Se agregó para eliminar todos los saltos de línea del buffer en el caso de que se haya ingresado texto por consola.
+	Esto es para vaciar el buffer de entrada, porque scanf en enteros deja los saltos de linea.*/
+	while(yyin == stdin && getchar() != '\n');
 	yyparse();
 	printf("\nAnalsis lexico: tabla de simbolos\n");
 	printSymbolTable();
